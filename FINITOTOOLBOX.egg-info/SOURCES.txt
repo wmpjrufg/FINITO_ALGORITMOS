@@ -1,0 +1,10 @@
+license.txt
+setup.cfg
+setup.py
+FINITOTOOLBOX.egg-info/PKG-INFO
+FINITOTOOLBOX.egg-info/SOURCES.txt
+FINITOTOOLBOX.egg-info/dependency_links.txt
+FINITOTOOLBOX.egg-info/top_level.txt
+FINITO_TOOLBOX/FINITO.py
+FINITO_TOOLBOX/FINITO_COMMON_LIBRARY.py
+FINITO_TOOLBOX/__init__.py
