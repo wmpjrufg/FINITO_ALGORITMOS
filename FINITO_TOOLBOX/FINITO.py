@@ -1,16 +1,20 @@
-######################################################################
+################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
-# WANDERLEI MALAQUIAS PEREIRA JUNIOR,        ENG. CIVIL / PROF (UFCAT)
-# DAVIDSON DE OLIVEIRA FRANÇA JUNIOR,          ENG. CIVIL / PROF (UNA)
-# GABRIEL BERNARDES CARVALHO,                       ENG. CIVIL (UFCAT)
-# JOSÉ VITOR CARVALHO SILVA,                        ENG. CIVIL (UFCAT)
-######################################################################
+# WANDERLEI MALAQUIAS PEREIRA JUNIOR,                  ENG. CIVIL / PROF (UFCAT)
+# MARCOS NAPOLEÃO RABELO,                              ENG. CIVIL / PROF (UFCAT)
+# DAVIDSON DE OLIVEIRA FRANÇA JUNIOR,                    ENG. CIVIL / PROF (UNA)
+# GABRIEL BERNARDES CARVALHO,                                 ENG. CIVIL (UFCAT)
+# JOSÉ VITOR CARVALHO SILVA,                                  ENG. CIVIL (UFCAT)
+# MURILO CARNEIRO RODRIGUES,                                  ENG. CIVIL (UFCAT)
+################################################################################
 
-######################################################################
+
+################################################################################
 # DESCRIÇÃO ALGORITMO:
 # BIBLIO. DE USO COMUM PARA ALGORITMOS DE ELEMENTOS FINITOS DESENVOL-
 # VIDA PELO GRUPO DE PESQUISA E ESTUDOS EM ENGENHARIA (GPEE)
-######################################################################
+################################################################################
+
 
 ################################################################################
 # BIBLIOTECAS NATIVAS PYTHON
@@ -25,12 +29,12 @@ def MEF1D(**kwargs):
     """ 
     This function performs structural analysis of bars with 2 nodes (1 at each end)
     
-    INPUT:
+    Input:
     All inputs kwargs arguments type
     FILENAME: Structural dataset (.txt extension)
     DICTIONARY: Structural dataset (Python dictionary)
 
-    OUTPUT:
+    Output:
     RESULTS: Structural analysis results by element (Python dictionary)
     """
     # READ INPUT MEF 1D
@@ -58,10 +62,10 @@ def MEF1D(**kwargs):
     HINGES = FINITO_CL.HINGED_PROPERTIES(ELEMENTS)
     for I_ELEMENT in range(N_ELEMENTS):
         # ELEMENTS PROPERTIES
-        MATERIAL_IELEMENT = FINITO_CL.MATERIALS_PROPERTIES(ELEMENTS, MATERIALS, I_ELEMENT, AUX_1)
-        SECTION_IELEMENT = FINITO_CL.GEOMETRIC_PROPERTIES(COORDINATES, ELEMENTS, SECTIONS, I_ELEMENT, AUX_2)
+        MATERIAL_IELEMENT = FINITO_CL.MATERIALS_PROPERTIES_0(ELEMENTS, MATERIALS, I_ELEMENT, AUX_1)
+        SECTION_IELEMENT = FINITO_CL.GEOMETRIC_PROPERTIES_0(COORDINATES, ELEMENTS, SECTIONS, I_ELEMENT, AUX_2)
         # ELEMENT STIFFNESS LOCAL AXIS
-        K_IELEMENT = FINITO_CL.ELEMENT_STIFFNESS(TYPE_ELEMENT, SECTION_IELEMENT, MATERIAL_IELEMENT, HINGES[I_ELEMENT, :])
+        K_IELEMENT = FINITO_CL.ELEMENT_STIFFNESS_0(TYPE_ELEMENT, SECTION_IELEMENT, MATERIAL_IELEMENT, HINGES[I_ELEMENT, :])
         # ROTATION
         R_IELEMENT = FINITO_CL.ELEMENT_ROTATION(TYPE_ELEMENT, SECTION_IELEMENT)
         # ELEMENT STIFFNESS GLOBAL AXIS
@@ -99,10 +103,10 @@ def MEF1D(**kwargs):
     RESULTS = [{'X': np.empty(DIV), 'UX': np.empty(DIV), 'UY': np.empty(DIV), 'UZ': np.empty(DIV), 'N': np.empty(DIV), 'V': np.empty(DIV), 'M': np.empty(DIV), 'ID_ELEMENT': J_COUNT} for J_COUNT in range(N_ELEMENTS)]
     for J_ELEMENT in range(N_ELEMENTS):
         # ELEMENT PROPERTIES: MATERIAL AND SECTION
-        MATERIAL_JELEMENT = FINITO_CL.MATERIALS_PROPERTIES(ELEMENTS, MATERIALS, J_ELEMENT, AUX_1)
-        SECTION_JELEMENT = FINITO_CL.GEOMETRIC_PROPERTIES(COORDINATES, ELEMENTS, SECTIONS, J_ELEMENT, AUX_2)
+        MATERIAL_JELEMENT = FINITO_CL.MATERIALS_PROPERTIES_0(ELEMENTS, MATERIALS, J_ELEMENT, AUX_1)
+        SECTION_JELEMENT = FINITO_CL.GEOMETRIC_PROPERTIES_0(COORDINATES, ELEMENTS, SECTIONS, J_ELEMENT, AUX_2)
         # ELEMENT STIFFNESS LOCAL AXIS
-        K_JELEMENT = FINITO_CL.ELEMENT_STIFFNESS(TYPE_ELEMENT, SECTION_JELEMENT, MATERIAL_JELEMENT, HINGES[J_ELEMENT, :])
+        K_JELEMENT = FINITO_CL.ELEMENT_STIFFNESS_0(TYPE_ELEMENT, SECTION_JELEMENT, MATERIAL_JELEMENT, HINGES[J_ELEMENT, :])
         # ROTATION
         R_JELEMENT = FINITO_CL.ELEMENT_ROTATION(TYPE_ELEMENT, SECTION_JELEMENT)
         # GOBAL DOF J_ELEMENT
@@ -143,4 +147,22 @@ def MEF1D(**kwargs):
             RESULTS[J_ELEMENT]['M'][I_COUNT] = M
     return RESULTS
 
+
+def MEF2D(**kwargs):
+    """ 
+    This function performs structural analysis via finite elements 
+    considering flat triangular elements (CST, LST*, QST*)
     
+    * Under development
+
+    Input:
+    All inputs kwargs arguments type
+    FILENAME: Structural dataset (.txt extension)
+    DICTIONARY: Structural dataset (Python dictionary)
+
+    Output:
+    RESULTS: Structural analysis results by element (Python dictionary)
+    """
+    # Read input file
+    FILENAME = kwargs.get('FILENAME')
+    DICTIONARY = kwargs.get('DICTIONARY')
