@@ -1,18 +1,18 @@
-######################################################################
+################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
-# WANDERLEI MALAQUIAS PEREIRA JUNIOR,        ENG. CIVIL / PROF (UFCAT)
-# DAVIDSON DE OLIVEIRA FRANÇA JUNIOR,          ENG. CIVIL / PROF (UNA)
-# GABRIEL BERNARDES CARVALHO,                       ENG. CIVIL (UFCAT)
-# JOSÉ VITOR CARVALHO SILVA,                        ENG. CIVIL (UFCAT)
-# MURILO CARNEIRO RODRIGUES,                        ENG. CIVIL (UFCAT)
-# DONIZETTI A. DE SOUZA JÚNIOR,                     ENG. CIVIL (UFCAT)
-######################################################################
+# WANDERLEI MALAQUIAS PEREIRA JUNIOR,                  ENG. CIVIL / PROF (UFCAT)
+# MARCOS NAPOLEÃO RABELO,                              ENG. CIVIL / PROF (UFCAT)
+# DAVIDSON DE OLIVEIRA FRANÇA JUNIOR,                    ENG. CIVIL / PROF (UNA)
+# GABRIEL BERNARDES CARVALHO,                                 ENG. CIVIL (UFCAT)
+# JOSÉ VITOR CARVALHO SILVA,                                  ENG. CIVIL (UFCAT)
+# MURILO CARNEIRO RODRIGUES,                                  ENG. CIVIL (UFCAT)
+################################################################################
 
-######################################################################
+################################################################################
 # DESCRIÇÃO ALGORITMO:
-# BIBLIO. FENON PARA FUNÇÕES COMUNS EM ELEMENTOS FINITOS DESENVOLVIDA
-# PELO GRUPO DE PESQUISA E ESTUDOS EM ENGENHARIA (GPEE)
-######################################################################
+# BIBLIO. FENON PARA FUNÇÕES COMUNS EM ELEMENTOS FINITOS DESENVOLVIDA PELO GRUPO
+# DE PESQUISA E ESTUDOS EM ENGENHARIA (GPEE)
+################################################################################
 
 ################################################################################
 # BIBLIOTECAS NATIVAS PYTHON
@@ -156,8 +156,8 @@ def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
 
 def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     """
-    This function reads the modified input input file from 
-    the ACADMESH software (https://set.eesc.usp.br/?page_id=237)
+    This function reads the modified input file from 
+    the ACADMESH2D software (https://set.eesc.usp.br/?page_id=237)
 
     Input:
     FILENAME: Structural dataset (.txt extension)
@@ -181,11 +181,7 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     TYPE_SOLUTION: Solution of the system of equations (integer);
                     0 - Condense procedure
                     1 - 0 and 1 algorithm
-    # # # # # # # # # # # # # # # # # # # # # # # # #
-
-    GRAU_INT
-    
-    # # # # # # # # # # # # # # # # # # # # # # # # #
+    TYPE_INTEGRATION: Type numerical integration (string);
     COORDINATES: Coordinates properties (Python Numpy array);
                     ID, X, Y
     MATERIALS: Materials properties (Python Numpy array);
@@ -198,13 +194,13 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
                     ID, NODE ID, FX VALUE, FY VALUE 
     # # # # # # # # # # # # # # # # # # # # # # # # #
 
-    PRESSURES: Under development # # # # # # # # # # #
+    PRESSURES: Under development 
     
     # # # # # # # # # # # # # # # # # # # # # # # # #
     PRESCRIPTIONS: Displacement properties (Python Numpy array);
                     ID, NODE ID, DIRECTION ('X', Y' and 'BOTH'), DISPLACMENT VALUE 
     """
-    # Read input file
+    # Read input file general properties
     FILE = open(FILENAME, "r")
     DATASET = FILE.read().split("\n")
     N_NODES = int(DATASET.pop(0).split(':')[1])
@@ -219,7 +215,7 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     TYPE_PLANE = DATASET.pop(0).split(':')[1]
     TYPE_ELEMENT = int(DATASET.pop(0).split(':')[1])
     TYPE_SOLUTION = int(DATASET.pop(0).split(':')[1])
-    GRAU_INT = int(DATASET.pop(0).split(':')[1]) ####################################
+    TYPE_INTEGRATION = int(DATASET.pop(0).split(':')[1])
     # Read coordinates 
     DATASET.pop(0)
     DATASET.pop(0)   
@@ -310,7 +306,7 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
             PRESCRIPTIONS[COUNT, 1] = 1
             PRESCRIPTIONS[COUNT, 2] = float(VALUES6[3])
             COUNT += 1
-    return N_NODES, N_MATERIALS, N_THICKNESS, N_ELEMENTST3, N_ELEMENTST6, N_ELEMENTST10, N_FORCES, N_PRESSURES, N_DISPLACEMENTS, TYPE_PLANE, TYPE_ELEMENT, TYPE_SOLUTION, GRAU_INT, COORDINATES, MATERIALS, THICKNESS, ELEMENTS, NODAL_EXTERNAL_LOAD, PRESCRIPTIONS
+    return N_NODES, N_MATERIALS, N_THICKNESS, N_ELEMENTST3, N_ELEMENTST6, N_ELEMENTST10, N_FORCES, N_PRESSURES, N_DISPLACEMENTS, TYPE_PLANE, TYPE_ELEMENT, TYPE_SOLUTION, TYPE_INTEGRATION, COORDINATES, MATERIALS, THICKNESS, ELEMENTS, NODAL_EXTERNAL_LOAD, PRESCRIPTIONS
 
 def INDEX_ASSEMBLY(TYPE_ELEMENT):
     """ 
@@ -325,10 +321,11 @@ def INDEX_ASSEMBLY(TYPE_ELEMENT):
     Output:
     N_DOFSNODE: Number of degress of freedom per node (integer);
     N_NODESELEMENT: Number of nodes per element (integer);
-    AUX_1: Material ID (integer);
-    AUX_2: Geometry ID (integer);
     DOFS_ACTIVE: Auxiliary variable (Python list);
     DOFS_LOCAL: ID local degrees of freedom in element (Python list);
+    AUX_1: Material ID in ELEMENTS (integer);
+    AUX_2: Geometry ID in ELEMENTS (integer);
+    N_DOFSELEMENT: Number of degress of freedom per element (integer);
     """
     # Frame bar element
     if TYPE_ELEMENT == 0: 
@@ -353,14 +350,14 @@ def DOF_GLOBAL_ASSEMBLY(TYPE_ELEMENT, N_DOFSNODE, N_NODES):
     freedoms by node of the structure
     
     Input
-    TYPE_ELEMENT: Type element in Finito algorithm 
+    TYPE_ELEMENT: Type element in Finito algorithm (integer); 
                     0 - Frame bar element
                     1 - CST surface element
-    N_DOFSNODE: Number of degress of freedom per node
+    N_DOFSNODE: Number of degress of freedom per node (integer);
     N_NODES: Number of nodes (integer);
 
     Output:
-    DOF_GLOBALNODAL: ID Global DOF per node u and v direction (Python Numpy array);
+    DOF_GLOBALNODAL: ID global DOF per node (Python Numpy array);
     """
     DOF_GLOBALNODAL = np.zeros((N_NODES, N_DOFSNODE))
     for I_COUNT in range (N_NODES):
@@ -379,6 +376,14 @@ def TOTAL_DEGREE_FREEDOM(N_DOFSNODE, N_NODES):
     """ 
     This function determines the quantity and values of the 
     structure's global degrees of freedom
+
+    Input:
+    N_DOFSNODE: Number of degress of freedom per node (integer);
+    N_NODES: Number of nodes (integer);
+
+    Output:
+    DOF_GLOBAL: ID global degree of freedom (Python list); 
+    N_DOFSGLOBAL: Total of degrees of freedom (integer);
     """
     DOF_GLOBAL = []
     N_DOFSGLOBAL = N_NODES * N_DOFSNODE
@@ -387,8 +392,21 @@ def TOTAL_DEGREE_FREEDOM(N_DOFSNODE, N_NODES):
     return DOF_GLOBAL, N_DOFSGLOBAL
 
 def PRESCRIPTIONS_DEGREE_FREEDOM(PRESCRIPTIONS, DOF_GLOBALNODAL, N_DOFSNODE):
-    """ THIS FUNCTION DETERMINES THE QUANTITY AND VALUES OF THE STRUCTURE'S
-    PRESCRIPTIONS DEGREES OF FREEDOM """
+    """
+    This function determines the quantity and values of the displacement 
+    prescriptions of degrees of freedom 
+
+    Input: 
+    DOF_GLOBALNODAL: ID global DOF per node (Python Numpy array);
+    PRESCRIPTIONS: Displacement properties (Python Numpy array);
+                ID, NODE ID, DIRECTION ('X', Y' and 'BOTH'), DISPLACMENT VALUE
+    N_DOFSNODE: Number of degress of freedom per node (integer);
+
+    Output:
+    DOF_PRESCRIPTIONS: ID prescribed degree of freedom (Python list); 
+    DOF_PRESCRIPTIONSVALUE: Value prescribed degree of freedom (Python list);
+    N_DOFSPRESCRIPTIONS: Total number of prescribed degrees of freedom (integer);
+    """
     DOF_PRESCRIPTIONS = []
     DOF_PRESCRIPTIONSVALUE = []
     N_DOFSPRESCRIPTIONS = PRESCRIPTIONS.shape[0]
@@ -402,8 +420,18 @@ def PRESCRIPTIONS_DEGREE_FREEDOM(PRESCRIPTIONS, DOF_GLOBALNODAL, N_DOFSNODE):
     return DOF_PRESCRIPTIONS, DOF_PRESCRIPTIONSVALUE, N_DOFSPRESCRIPTIONS
 
 def FREE_DEGREE_FREEDOM(DOF_PRESCRIPTIONS, DOF_GLOBAL):
-    """ THIS FUNCTION DETERMINES THE QUANTITY AND VALUES OF THE STRUCTURE'S 
-    FREE DEGREES OF FREEDOM """
+    """
+    This function determines the quantity and values of the displacement 
+    free of degrees of freedom 
+
+    Input:
+    DOF_PRESCRIPTIONS: ID prescribed degree of freedom (Python list); 
+    DOF_GLOBAL: ID global degree of freedom (Python list);
+
+    Output:
+    DOF_FREE: ID free degree of freedom (Python list); 
+    N_DOFSFREE: Total number of free degrees of freedom (integer);
+    """
     DOF_FREE = np.setdiff1d(DOF_GLOBAL, DOF_PRESCRIPTIONS)
     N_DOFSFREE = len(DOF_FREE)
     return DOF_FREE, N_DOFSFREE
@@ -422,8 +450,10 @@ def CONTRIBUTION_NODAL_EXTERNAL_LOAD(NODAL_EXTERNAL_LOAD, N_DOFSGLOBAL, DOF_GLOB
     return DOF_NODALFORCE
 
 def MATERIALS_PROPERTIES_0(ELEMENTS, MATERIALS, I_ELEMENT, AUX_1):
-    """ THIS FUNCTION CREATES A VECTOR WITH THE MATERIAL INFORMATION 
-    OF THE I_ELEMENT ELEMENT """
+    """
+    THIS FUNCTION CREATES A VECTOR WITH THE MATERIAL INFORMATION 
+    OF THE I_ELEMENT ELEMENT
+    """
     MATERIAL_ID = int(ELEMENTS[I_ELEMENT, AUX_1])
     E = MATERIALS[MATERIAL_ID, 0]
     NU = MATERIALS[MATERIAL_ID, 1]
@@ -469,9 +499,9 @@ def GEOMETRIC_PROPERTIES_1(COORDINATES, ELEMENTS, I_ELEMENT, THICKNESS, AUX_2):
     ELEMENTS: Elements properties (Python Numpy array);
                     ID, NODE 0 ... NODE N, MATERIAL ID, THICKNESS ID
     Output: 
-    SECTION_IELEMENT: i element geometric properties
+    SECTION_IELEMENT: i element geometric properties (Python dictionary);
     """
-    NODE_0 = int(ELEMENTS[I_ELEMENT, 1]) # aqui não teria um erro??? não seria 0, 1 e 2
+    NODE_0 = int(ELEMENTS[I_ELEMENT, 1])
     X0, Y0 = COORDINATES[NODE_0, 1], COORDINATES[NODE_0, 2]
     NODE_1 = int(ELEMENTS[I_ELEMENT, 2])
     X1, Y1 = COORDINATES[NODE_1, 1], COORDINATES[NODE_1, 2]
@@ -503,29 +533,28 @@ def CONSTITUTIVE_C(TYPE_PLANE, MATERIALS, ELEMENTS, I_ELEMENT):
     C: Constitutive matrix in formulation (Python Numpy array); 
     """
     MATERIAL_ID = int(ELEMENTS[I_ELEMENT, 4])
-    E = MATERIALS[MATERIAL_ID][0]
-    NU = MATERIALS[MATERIAL_ID][1]
+    E = MATERIALS[MATERIAL_ID, 0]
+    NU = MATERIALS[MATERIAL_ID, 1]
+    # Plane stress
     if TYPE_PLANE == 'EPT':
-            C11 = 1 - NU
+            C11 = 1
             C12 = NU
-            C21 = NU
-            C22 = 1 - NU
-            C33 = 0.5 - NU
-            AUX_1 = 
-            AUX_2 = 
-            C = (E / (1 - NU ** 2)) * (np.array([[1, NU, 0],
-                                                                   [NU, 1, 0],
-                                                                   [0, 0, ((1 - NU) / 2)]]))
+            C21 = C12
+            C22 = 1
+            C33 = 0.5 * (1 - NU)
+            AUX_1 = E / (1 - NU ** 2)
+            AUX_2 = np.array([[C11, C12, 0], [C21, C22, 0], [0, 0, C33]])
+            C = AUX_1 * AUX_2
+    # Plane strain
     elif TYPE_PLANE == 'EPD':
             C11 = 1 - NU
             C12 = NU
             C21 = NU
             C22 = 1 - NU
             C33 = 0.5 - NU
-            AUX_1 = 
-            AUX_2 = 
-            C = (E/((1 + NU)*(1 - 2*NU)))*(np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]]))
-
+            AUX_1 = E/((1 + NU)*(1 - 2*NU))
+            AUX_2 = np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]])
+            C = AUX_1 * AUX_2
     return C
 
 def HINGED_PROPERTIES(ELEMENTS):
@@ -590,114 +619,145 @@ def ELEMENT_STIFFNESS_0(TYPE_ELEMENT, SECTION_IELEMENT, MATERIAL_IELEMENT, HINGE
                               [0, 0, 0, 0, 0, 0]])
     return K_IELEMENT
 
-def SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT):
+def SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT, ISO_COORDINATES):
     """
-    Bla bla bla
+    This function creates the matrix of the derivatives of the shape functions
 
     Input:
-    TYPE_ELEMENT: Type element in Finito algorithm 
+    TYPE_ELEMENT: Type element in Finito algorithm (integer); 
                 0 - Frame bar element
                 1 - CST surface element
+    N_NODESELEMENT: Number of nodes per element (integer);
+    ISO_COORDINATES: Isoparametric coordinates (Python dictionary);
+
     Output:
-    ND_DIFF: ###############
-    NX_DIFF: ###############
+    ND_DIFF: ND derivatives matrix (Python Numpy array);
+    NX_DIFF: NX derivatives matrix (Python Numpy array);
     """
     if TYPE_ELEMENT == 1:
-        N_SHAPE = N_NODESELEMENT
         # Derivative shape functions 
         DIFF_KSI = [-1, 1, 0]
         DIFF_ETA = [-1, 0, 1]
+        # ND e NX assembly
         NX_DIFF = np.array([DIFF_KSI, DIFF_ETA])
-        ND_DIFF = DND_ASSEMBLY(N_SHAPE, NX_DIFF)
+        ND_DIFF = DND_ASSEMBLY(N_NODESELEMENT, NX_DIFF)
     return ND_DIFF, NX_DIFF
 
-def DND_ASSEMBLY(N_SHAPE, NX_DIFF):
+def DND_ASSEMBLY(N_NODESELEMENT, NX_DIFF):
     """
-    Bla bla bla
+    This function assembles the derived matrix ND
 
     Input:
-    TYPE_ELEMENT: Type element in Finito algorithm 
-                0 - Frame bar element
-                1 - CST surface element
+    N_NODESELEMENT: Number of nodes per element (integer);
+    NX_DIFF: NX derivatives matrix (Python Numpy array);
+    
     Output:
-    ND_DIFF: ###############
-    NX_DIFF: ###############
+    ND_DIFF: ND derivatives matrix (Python Numpy array);
     """
-    ND_DIFF_1 = np.zeros((2, 2 * N_SHAPE))
-    ND_DIFF_2 = np.zeros((2, 2 * N_SHAPE))
+    ND_DIFF_1 = np.zeros((2, 2 * N_NODESELEMENT))
+    ND_DIFF_2 = np.zeros((2, 2 * N_NODESELEMENT))
+    # Automatic assembly 
     for I_COUNT in range(2):
         COUNT_1 = 0
         COUNT_2 = 0
-        for J_COUNT in range(0, 2 * N_SHAPE, 2):
+        for J_COUNT in range(0, 2 * N_NODESELEMENT, 2):
             ND_DIFF_1[I_COUNT, J_COUNT] = NX_DIFF[I_COUNT, COUNT]
             COUNT_1 += 1
-        for K_COUNT in range(1, 2 * N_SHAPE, 2):
+        for K_COUNT in range(1, 2 * N_NODESELEMENT, 2):
             ND_DIFF_2[I_COUNT, K_COUNT] = NX_DIFF[I_COUNT, COUNT]
             COUNT_2 += 1
     ND_DIFF = np.vstack((ND_DIFF_1, ND_DIFF_2))
     return ND_DIFF
 
-def STIFFNESS(DN_X, DN_D, C, X_E):
+def STIFFNESS(NX_DIFF, ND_DIFF, C, X_E):
     """
-    Bla bla bla
+    This function assembles the element's stiffness matrix to a Gaussian point
 
     Input:
-    TYPE_ELEMENT: Type element in Finito algorithm 
-                0 - Frame bar element
-                1 - CST surface element
+    NX_DIFF: NX derivatives matrix (Python Numpy array);
+    ND_DIFF: ND derivatives matrix (Python Numpy array);
+    C: Constitutive matrix in formulation (Python Numpy array); 
+    X_E: i element coordinates (Python Numpy array);
+
     Output:
-    ND_DIFF: ###############
-    NX_DIFF: ###############
+    K_I: i element stiffness matrix (Python Numpy array);
     """
-    J = np.dot(DN_X, X_E)
+    # Jacobian matrix
+    J = np.dot(NX_DIFF, X_E)
+    # Determinant of the Jacobian matrix
     DET_J = np.linalg.det(J)
+    # Gamma and Gamma U matrix
     GAMMA = np.linalg.inv(J)
-    Gama00 = GAMMA[0, 0]
-    Gama01 = GAMMA[0, 1]
-    Gama10 = GAMMA[1, 0]
-    Gama11 = GAMMA[1, 1]
-    GAMMA_U = np.array([[Gama00, Gama01, 0, 0],
-                        [Gama10, Gama11, 0, 0],
-                        [0, 0, Gama00, Gama01],
-                        [0, 0, Gama10, Gama11]])
+    GAMMA_00 = GAMMA[0, 0]
+    GAMMA_01 = GAMMA[0, 1]
+    GAMMA_10 = GAMMA[1, 0]
+    GAMMA_11 = GAMMA[1, 1]
+    GAMMA_U = np.array([[GAMMA_00, GAMMA_01, 0, 0],
+                        [GAMMA_10, GAMMA_11, 0, 0],
+                        [0, 0, GAMMA_00, GAMMA_01],
+                        [0, 0, GAMMA_10, GAMMA_11]])
     H = np.array([[1, 0, 0, 0],
-                        [0, 0, 0, 1],
-                        [0, 1, 1, 0]])
-    B = np.dot(np.dot(H, GAMMA_U), DN_D)
+                    [0, 0, 0, 1],
+                    [0, 1, 1, 0]])
+    B = np.dot(np.dot(H, GAMMA_U), ND_DIFF)
+    # i element stiffness matrix
     K_I = THICK * (np.dot(np.dot(B.transpose(), C), np.dot(B, DET_J)))
     return K_I
 
 def NUMERICAL_INTEGRATION(TYPE_INTEGRATION):
     """
+    This function creates the parameters for numerical integration
+    
+    Input:
+    TYPE_INTEGRATION: Type numerical integration (string);
+
+    Output:
+    NUM_INT: Setup numerical integration (Python dictionary);
     """
-    if TYPE_INTEGRATION == "HAMMER-12":
-        W = np.array([[0.116786275726379/2.0, 0.116786275726379/2.0, 0.116786275726379/2.0,
+    # Hammer 12 points
+    if TYPE_INTEGRATION == 'HAMMER-12':
+        W = [0.116786275726379/2.0, 0.116786275726379/2.0, 0.116786275726379/2.0,
                             0.050844906370207/2.0, 0.050844906370207/2.0, 0.050844906370207/2.0,
                             0.082851075618374/2.0, 0.082851075618374/2.0, 0.082851075618374/2.0,
-                            0.082851075618374/2.0, 0.082851075618374/2.0, 0.082851075618374/2.0]])
-        KSI = np.array([[0.501426509658179, 0.249286745170910, 0.249286745170910,
+                            0.082851075618374/2.0, 0.082851075618374/2.0, 0.082851075618374/2.0]
+        KSI = [0.501426509658179, 0.249286745170910, 0.249286745170910,
                                0.873821971016996, 0.063089014491502, 0.063089014491502,
                                0.053145049844816, 0.310352451033785, 0.636502499121399,
-                               0.310352451033785, 0.636502499121399, 0.053145049844816]])
-        ETA = np.array([[0.249286745170910, 0.249286745170910, 0.501426509658179,
+                               0.310352451033785, 0.636502499121399, 0.053145049844816]
+        ETA = [0.249286745170910, 0.249286745170910, 0.501426509658179,
                                0.063089014491502, 0.063089014491502, 0.873821971016996,
                                0.310352451033785, 0.636502499121399, 0.053145049844816,
-                               0.053145049844816, 0.310352451033785, 0.636502499121399]])
+                               0.053145049844816, 0.310352451033785, 0.636502499121399]
         N_POINTS = W.shape[1]
     NUM_INT = {'W': W, 'KSI': KSI, 'ETA': ETA, 'N': N_POINTS}
     return NUM_INT
 
-def ELEMENT_STIFFNESS_1(NUM_INT, N_DOFSELEMENT, TYPE_ELEMENT, N_NODESELEMENT, C, SECTION_IELEMENT):
+def ELEMENT_STIFFNESS_1(NUM_INT, N_DOFSELEMENT, TYPE_ELEMENT, N_NODESELEMENT, C_IELEMENT, SECTION_IELEMENT):
     """
+    This function calculates the stiffness matrix of the isoparametric element
+
+    Input:
+    NUM_INT: Setup numerical integration (Python dictionary);
+    N_DOFSELEMENT: Number of degress of freedom per element (integer);
+    TYPE_ELEMENT: Type element in Finito algorithm (integer); 
+            0 - Frame bar element
+            1 - CST surface element
+    N_NODESELEMENT: Number of nodes per element (integer);
+    C_IELEMENT: i element constitutive matrix in formulation (Python Numpy array); 
+    SECTION_IELEMENT: i element geometric properties (Python dictionary);
+
+    Output:
+    K_IELEMENT: Complete i element stiffness matrix
     """
     POINTS = NUM_INT['N']
     K_IELEMENT = np.zeros((N_DOFSELEMENT, N_DOFSELEMENT))
     for I_COUNT in range(POINTS):
-        [DN_D, DN_X] = SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT):
+        ISO_COORDINATES = {'KSI': NUM_INT['KSI'][I_COUNT], 'ETA': NUM_INT['ETA'][I_COUNT]}
+        [ND_DIFF, NX_DIFF] = SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT, ISO_COORDINATES):
         X_E = SECTION_IELEMENT['X_E']
-        K_I = STIFFNESS(DN_X, DN_D, C, X_E):
-        WEIGHT = NUM_INT['N'][I_COUNT]
-        K_IELEMENT += K_I * WEIGHT[0, I_COUNT]
+        K_I = STIFFNESS(NX_DIFF, ND_DIFF, C_IELEMENT, X_E):
+        WEIGHT = NUM_INT['W'][I_COUNT]
+        K_IELEMENT += K_I * WEIGHT
     return K_IELEMENT
 
 def SPRING_CONTRIBUTION(N_DOFSNODE, SPRINGS, N_SPRINGS):
