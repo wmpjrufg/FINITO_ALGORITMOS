@@ -753,9 +753,9 @@ def ELEMENT_STIFFNESS_1(NUM_INT, N_DOFSELEMENT, TYPE_ELEMENT, N_NODESELEMENT, C_
     K_IELEMENT = np.zeros((N_DOFSELEMENT, N_DOFSELEMENT))
     for I_COUNT in range(POINTS):
         ISO_COORDINATES = {'KSI': NUM_INT['KSI'][I_COUNT], 'ETA': NUM_INT['ETA'][I_COUNT]}
-        [ND_DIFF, NX_DIFF] = SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT, ISO_COORDINATES):
+        [ND_DIFF, NX_DIFF] = SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT, ISO_COORDINATES)
         X_E = SECTION_IELEMENT['X_E']
-        K_I = STIFFNESS(NX_DIFF, ND_DIFF, C_IELEMENT, X_E):
+        K_I = STIFFNESS(NX_DIFF, ND_DIFF, C_IELEMENT, X_E)
         WEIGHT = NUM_INT['W'][I_COUNT]
         K_IELEMENT += K_I * WEIGHT
     return K_IELEMENT
@@ -866,3 +866,53 @@ def GLOBAL_INTERNAL_LOADS(F_INTIELEMENT, N_DOFSGLOBAL, DOF_GLOBALIELEMENT):
     for I_COUNT, J_COUNT in enumerate(DOF_GLOBALIELEMENT):
         F_INT[J_COUNT, 0] = F_INTIELEMENT[I_COUNT, 0]
     return F_INT
+
+def GLOBAL_NODAL_FORCE(NODAL_EXTERNAL_LOAD, N_DOFSGLOBAL):
+    FORCE_GLOBAL = np.zeros(N_DOFSGLOBAL)
+    for ii in range(NODAL_EXTERNAL_LOAD.shape[0]):
+        NODE = int(NODAL_EXTERNAL_LOAD[ii, 0])
+        DIRECTION = int(NODAL_EXTERNAL_LOAD[ii, 1])
+        VALUE = NODAL_EXTERNAL_LOAD[ii, 2]
+        if DIRECTION == 0:  # DIR 0 -> X
+            DOF = 2 * NODE
+            if NODE == 0:
+                DOF = 0
+            FORCE_GLOBAL[DOF] += VALUE
+        if DIRECTION == 1:  # DIR 1 -> Y
+            DOF = 2 * NODE + 1
+            if NODE == 0:
+                DOF = 1
+            FORCE_GLOBAL[DOF] += VALUE
+
+    return FORCE_GLOBAL
+
+
+def ZERO_AND_ONE_METHOD(K_G, FORCE_GLOBAL, PRESCRIPTIONS):
+    funcao_teste = []
+    for i in range(FORCE_GLOBAL.shape[0]):
+        funcao_teste.append(int(FORCE_GLOBAL[i]))
+
+    for I_COUNT in range(PRESCRIPTIONS.shape[0]):
+        NODE = int(PRESCRIPTIONS[I_COUNT,0])
+        DIRECTION = int(PRESCRIPTIONS[I_COUNT,1])
+        VALUE8 = PRESCRIPTIONS[I_COUNT,2]
+        if DIRECTION == 0:
+            DOF = 2 * NODE
+            if NODE == 0:
+                DOF = 0
+            funcao_teste -= VALUE8 * K_G[:, DOF]
+            funcao_teste[DOF] = VALUE8
+            K_G[DOF,:] = 0
+            K_G[:, DOF] = 0
+            K_G[DOF, DOF] = 1
+        if DIRECTION == 1:
+            DOF = 2 * NODE + 1
+            if NODE == 0:
+                DOF = 1
+            funcao_teste -= VALUE8 * K_G[:, DOF]
+            funcao_teste[DOF] = VALUE8
+            K_G[DOF,:] = 0
+            K_G[:, DOF] = 0
+            K_G[DOF, DOF] = 1
+
+    return K_G, funcao_teste
