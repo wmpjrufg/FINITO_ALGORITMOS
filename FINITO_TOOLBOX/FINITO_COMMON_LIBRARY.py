@@ -154,6 +154,30 @@ def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
             SPRINGS[int(VALUES[0]),2] = float(VALUES[3]) 
     return TYPE_SOLUTION, TYPE_ELEMENT, N_NODES, N_MATERIALS, N_SECTIONS, N_ELEMENTS, N_DOFPRESCRIPTIONS, N_ELEMENTSLOADED, N_NODESLOADED, N_SPRINGS, COORDINATES, ELEMENTS, MATERIALS, SECTIONS, PRESCRIPTIONS, ELEMENT_EXTERNAL_LOAD, NODAL_EXTERNAL_LOAD, SPRINGS
 
+def GET_VALUE_FROM_DICT_MEF2D_FINITO(DICTIONARY):
+    ### A FAZER
+    N_NODES = DICTIONARY["N_NODES"]
+    N_MATERIALS = DICTIONARY["N_MATERIALS"]
+    N_THICKNESS = DICTIONARY["N_THICKNESS"]
+    N_ELEMENTS = DICTIONARY["N_ELEMENTST3"]
+    N_ELEMENTST6 = DICTIONARY["N_ELEMENTST6"]
+    N_ELEMENTST10 = DICTIONARY["N_ELEMENTST10"]
+    N_FORCES = DICTIONARY["N_FORCES"]
+    N_PRESSURES = DICTIONARY["N_PRESSURES"]
+    N_DISPLACEMENTS = DICTIONARY["N_DISCPLACEMENTS"]
+    TYPE_PLANE = DICTIONARY["TYPE_PLANE"]
+    TYPE_ELEMENT = DICTIONARY["TYPE_ELEMENT"]
+    TYPE_SOLUTION = DICTIONARY["TYPE_SOLUTION"]
+    GRAU_INT = DICTIONARY["GRAU_INT"]
+    COORDINATES = DICTIONARY["COORDINATES"]
+    MATERIALS = DICTIONARY["MATERIALS"]
+    THICKNESS = DICTIONARY["THICKNESS"]
+    ELEMENTS = DICTIONARY["ELEMENTS"]
+    NODAL_EXTERNAL_LOAD = DICTIONARY["EXTERNAL LOADS"]
+    PRESCRIPTIONS = DICTIONARY["PRESCRIBED DISPLACEMENTS"]
+
+    return N_NODES, N_MATERIALS, N_THICKNESS, N_ELEMENTS, N_ELEMENTST6, N_ELEMENTST10, N_FORCES, N_PRESSURES, N_DISPLACEMENTS, N_DISPLACEMENTS, TYPE_PLANE, TYPE_ELEMENT, TYPE_SOLUTION, GRAU_INT, COORDINATES, MATERIALS, THICKNESS, ELEMENTS, NODAL_EXTERNAL_LOAD, PRESCRIPTIONS
+
 def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     """
     This function reads the modified input file from 
@@ -183,7 +207,7 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
                     1 - 0 and 1 algorithm
     TYPE_INTEGRATION: Type numerical integration (string);
     COORDINATES: Coordinates properties (Python Numpy array);
-                    ID, X, Y
+                    NODE, X, Y
     MATERIALS: Materials properties (Python Numpy array);
                     ID, YOUNG, POISSON, DENSITY
     THICKNESS: Thickness properties (Python Numpy array);
@@ -206,7 +230,7 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     N_NODES = int(DATASET.pop(0).split(':')[1])
     N_MATERIALS = int(DATASET.pop(0).split(':')[1])
     N_THICKNESS = int(DATASET.pop(0).split(':')[1])
-    N_ELEMENTST3 = int(DATASET.pop(0).split(':')[1])
+    N_ELEMENTS = int(DATASET.pop(0).split(':')[1])
     N_ELEMENTST6 = int(DATASET.pop(0).split(':')[1])
     N_ELEMENTST10 = int(DATASET.pop(0).split(':')[1])
     N_FORCES = int(DATASET.pop(0).split(':')[1])
@@ -244,15 +268,14 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     DATASET.pop(0)
     DATASET.pop(0)
     # COLOCAR AQUI UM IF PARA DIZER QUE ESSA LEITURA É SÓ DO T3
-    ELEMENTS = np.zeros((N_ELEMENTST3, 6))
-    for L_COUNT in range(N_ELEMENTST3):
+    ELEMENTS = np.zeros((N_ELEMENTS, 5))
+    for L_COUNT in range(N_ELEMENTS):
         VALUES3 = DATASET.pop(0).split(',')
-        ELEMENTS[int(VALUES3[0]), 0] = int(VALUES3[0])
-        ELEMENTS[int(VALUES3[0]), 1] = int(VALUES3[1])
-        ELEMENTS[int(VALUES3[0]), 2] = int(VALUES3[2])
-        ELEMENTS[int(VALUES3[0]), 3] = int(VALUES3[3])
-        ELEMENTS[int(VALUES3[0]), 4] = int(VALUES3[4])
-        ELEMENTS[int(VALUES3[0]), 5] = int(VALUES3[5])
+        ELEMENTS[int(VALUES3[0]), 0] = int(VALUES3[1])
+        ELEMENTS[int(VALUES3[0]), 1] = int(VALUES3[2])
+        ELEMENTS[int(VALUES3[0]), 2] = int(VALUES3[3])
+        ELEMENTS[int(VALUES3[0]), 3] = int(VALUES3[4])
+        ELEMENTS[int(VALUES3[0]), 4] = int(VALUES3[5])
     # Read nodal forces
     DATASET.pop(0)
     DATASET.pop(0)
@@ -306,7 +329,7 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
             PRESCRIPTIONS[COUNT, 1] = 1
             PRESCRIPTIONS[COUNT, 2] = float(VALUES6[3])
             COUNT += 1
-    return N_NODES, N_MATERIALS, N_THICKNESS, N_ELEMENTST3, N_ELEMENTST6, N_ELEMENTST10, N_FORCES, N_PRESSURES, N_DISPLACEMENTS, TYPE_PLANE, TYPE_ELEMENT, TYPE_SOLUTION, TYPE_INTEGRATION, COORDINATES, MATERIALS, THICKNESS, ELEMENTS, NODAL_EXTERNAL_LOAD, PRESCRIPTIONS
+    return N_NODES, N_MATERIALS, N_THICKNESS, N_ELEMENTS, N_ELEMENTST6, N_ELEMENTST10, N_FORCES, N_PRESSURES, N_DISPLACEMENTS, TYPE_PLANE, TYPE_ELEMENT, TYPE_SOLUTION, TYPE_INTEGRATION, COORDINATES, MATERIALS, THICKNESS, ELEMENTS, NODAL_EXTERNAL_LOAD, PRESCRIPTIONS
 
 def INDEX_ASSEMBLY(TYPE_ELEMENT):
     """ 
@@ -537,24 +560,24 @@ def CONSTITUTIVE_C(TYPE_PLANE, MATERIALS, ELEMENTS, I_ELEMENT):
     NU = MATERIALS[MATERIAL_ID, 1]
     # Plane stress
     if TYPE_PLANE == 'EPT':
-            C11 = 1
-            C12 = NU
-            C21 = C12
-            C22 = 1
-            C33 = 0.5 * (1 - NU)
-            AUX_1 = E / (1 - NU ** 2)
-            AUX_2 = np.array([[C11, C12, 0], [C21, C22, 0], [0, 0, C33]])
-            C = AUX_1 * AUX_2
+        C11 = 1
+        C12 = NU
+        C21 = C12
+        C22 = 1
+        C33 = 0.5 * (1 - NU)
+        AUX_1 = E / (1 - NU ** 2)
+        AUX_2 = np.array([[C11, C12, 0], [C21, C22, 0], [0, 0, C33]])
+        C = AUX_1 * AUX_2
     # Plane strain
     elif TYPE_PLANE == 'EPD':
-            C11 = 1 - NU
-            C12 = NU
-            C21 = NU
-            C22 = 1 - NU
-            C33 = 0.5 - NU
-            AUX_1 = E/((1 + NU)*(1 - 2*NU))
-            AUX_2 = np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]])
-            C = AUX_1 * AUX_2
+        C11 = 1 - NU
+        C12 = NU
+        C21 = NU
+        C22 = 1 - NU
+        C33 = 0.5 - NU
+        AUX_1 = E/((1 + NU)*(1 - 2*NU))
+        AUX_2 = np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]])
+        C = AUX_1 * AUX_2
     return C
 
 def HINGED_PROPERTIES(ELEMENTS):
