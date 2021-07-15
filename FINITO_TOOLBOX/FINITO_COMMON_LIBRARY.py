@@ -530,55 +530,55 @@ def GEOMETRIC_PROPERTIES_1(COORDINATES, ELEMENTS, I_ELEMENT, THICKNESS, AUX_2):
     X1, Y1 = COORDINATES[NODE_1, 1], COORDINATES[NODE_1, 2]
     NODE_2 = int(ELEMENTS[I_ELEMENT, 3])
     X2, Y2 = COORDINATES[NODE_2, 1], COORDINATES[NODE_2, 2]
-    THICK_ID = int(ELEMENTS[I_ELEMENT, AUX_2])
+    THICK_ID = int(ELEMENTS[I_ELEMENT, 4])
     THICK = THICKNESS[THICK_ID, 0]
     SECTION_IELEMENT = {'X_E': np.array([[X0, Y0], [X1, Y1], [X2, Y2]]), 'THICKNESS': THICK}
     return SECTION_IELEMENT
 
-def CONSTITUTIVE_C(TYPE_PLANE, MATERIALS, ELEMENTS, I_ELEMENT):
-    """
-    This function determines the matrix responsible for establishing 
-    the constitutive relationship between stress and strain 
-    according to the choosen analysis
-    
-    Input:
-    TYPE_PLANE: Type of analysis in the plan (string);
-                    EPT - Plane Stress
-                    EPD - Plane Strain
-    MATERIALS: Materials properties (Python Numpy array);
-                    ID, YOUNG, POISSON, DENSITY
-    ELEMENTS: Elements properties (Python Numpy array);
-                    ID, NODE 0 ... NODE N, MATERIAL ID, THICKNESS ID
-    I_ELEMENT: ID i element in looping for
-                    0 and (N_ELEMENTS - 1) 
-    
-    Output:
-    C: Constitutive matrix in formulation (Python Numpy array); 
-    """
-    MATERIAL_ID = int(ELEMENTS[I_ELEMENT, 4])
-    E = MATERIALS[MATERIAL_ID, 0]
-    NU = MATERIALS[MATERIAL_ID, 1]
-    # Plane stress
-    if TYPE_PLANE == 'EPT':
-        C11 = 1
-        C12 = NU
-        C21 = C12
-        C22 = 1
-        C33 = 0.5 * (1 - NU)
-        AUX_1 = E / (1 - NU ** 2)
-        AUX_2 = np.array([[C11, C12, 0], [C21, C22, 0], [0, 0, C33]])
-        C = AUX_1 * AUX_2
-    # Plane strain
-    elif TYPE_PLANE == 'EPD':
-        C11 = 1 - NU
-        C12 = NU
-        C21 = NU
-        C22 = 1 - NU
-        C33 = 0.5 - NU
-        AUX_1 = E/((1 + NU)*(1 - 2*NU))
-        AUX_2 = np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]])
-        C = AUX_1 * AUX_2
-    return C
+# def CONSTITUTIVE_C(TYPE_PLANE, MATERIALS, ELEMENTS, I_ELEMENT):
+#     """
+#     This function determines the matrix responsible for establishing
+#     the constitutive relationship between stress and strain
+#     according to the choosen analysis
+#
+#     Input:
+#     TYPE_PLANE: Type of analysis in the plan (string);
+#                     EPT - Plane Stress
+#                     EPD - Plane Strain
+#     MATERIALS: Materials properties (Python Numpy array);
+#                     ID, YOUNG, POISSON, DENSITY
+#     ELEMENTS: Elements properties (Python Numpy array);
+#                     ID, NODE 0 ... NODE N, MATERIAL ID, THICKNESS ID
+#     I_ELEMENT: ID i element in looping for
+#                     0 and (N_ELEMENTS - 1)
+#
+#     Output:
+#     C: Constitutive matrix in formulation (Python Numpy array);
+#     """
+#     MATERIAL_ID = int(ELEMENTS[I_ELEMENT, 4])
+#     E = MATERIALS[MATERIAL_ID, 0]
+#     NU = MATERIALS[MATERIAL_ID, 1]
+#     # Plane stress
+#     if TYPE_PLANE == 'EPT':
+#         C11 = 1
+#         C12 = NU
+#         C21 = C12
+#         C22 = 1
+#         C33 = 0.5 * (1 - NU)
+#         AUX_1 = E / (1 - NU ** 2)
+#         AUX_2 = np.array([[C11, C12, 0], [C21, C22, 0], [0, 0, C33]])
+#         C = AUX_1 * AUX_2
+#     # Plane strain
+#     elif TYPE_PLANE == 'EPD':
+#         C11 = 1 - NU
+#         C12 = NU
+#         C21 = NU
+#         C22 = 1 - NU
+#         C33 = 0.5 - NU
+#         AUX_1 = E/((1 + NU)*(1 - 2*NU))
+#         AUX_2 = np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]])
+#         C = AUX_1 * AUX_2
+#     return C
 
 def HINGED_PROPERTIES(ELEMENTS):
     HINGES = ELEMENTS[:,4:]
@@ -684,10 +684,10 @@ def DND_ASSEMBLY(N_NODESELEMENT, NX_DIFF):
         COUNT_1 = 0
         COUNT_2 = 0
         for J_COUNT in range(0, 2 * N_NODESELEMENT, 2):
-            ND_DIFF_1[I_COUNT, J_COUNT] = NX_DIFF[I_COUNT, COUNT]
+            ND_DIFF_1[I_COUNT, J_COUNT] = NX_DIFF[I_COUNT, COUNT_1]
             COUNT_1 += 1
         for K_COUNT in range(1, 2 * N_NODESELEMENT, 2):
-            ND_DIFF_2[I_COUNT, K_COUNT] = NX_DIFF[I_COUNT, COUNT]
+            ND_DIFF_2[I_COUNT, K_COUNT] = NX_DIFF[I_COUNT, COUNT_2]
             COUNT_2 += 1
     ND_DIFF = np.vstack((ND_DIFF_1, ND_DIFF_2))
     return ND_DIFF
@@ -738,7 +738,8 @@ def NUMERICAL_INTEGRATION(TYPE_INTEGRATION):
     NUM_INT: Setup numerical integration (Python dictionary);
     """
     # Hammer 12 points
-    if TYPE_INTEGRATION == 'HAMMER-12':
+    # if TYPE_INTEGRATION == 'HAMMER-12':
+    if TYPE_INTEGRATION == 1:
         W = [0.116786275726379/2.0, 0.116786275726379/2.0, 0.116786275726379/2.0,
                             0.050844906370207/2.0, 0.050844906370207/2.0, 0.050844906370207/2.0,
                             0.082851075618374/2.0, 0.082851075618374/2.0, 0.082851075618374/2.0,
@@ -751,7 +752,8 @@ def NUMERICAL_INTEGRATION(TYPE_INTEGRATION):
                                0.063089014491502, 0.063089014491502, 0.873821971016996,
                                0.310352451033785, 0.636502499121399, 0.053145049844816,
                                0.053145049844816, 0.310352451033785, 0.636502499121399]
-        N_POINTS = W.shape[1]
+        # N_POINTS = W.shape[1] - shape não funciona em lista
+        N_POINTS = len(W)
     NUM_INT = {'W': W, 'KSI': KSI, 'ETA': ETA, 'N': N_POINTS}
     return NUM_INT
 
