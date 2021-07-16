@@ -705,6 +705,7 @@ def STIFFNESS(NX_DIFF, ND_DIFF, C, X_E):
     Output:
     K_I: i element stiffness matrix (Python Numpy array);
     """
+
     # Jacobian matrix
     J = np.dot(NX_DIFF, X_E)
     # Determinant of the Jacobian matrix
@@ -724,7 +725,7 @@ def STIFFNESS(NX_DIFF, ND_DIFF, C, X_E):
                     [0, 1, 1, 0]])
     B = np.dot(np.dot(H, GAMMA_U), ND_DIFF)
     # i element stiffness matrix
-    K_I = THICK * (np.dot(np.dot(B.transpose(), C), np.dot(B, DET_J)))
+    K_I = THICK * (np.dot(np.dot(B.transpose(), C), np.dot(B, DET_J)))  #### ENTRAR COM ESSE THICK ####
     return K_I
 
 def NUMERICAL_INTEGRATION(TYPE_INTEGRATION):
