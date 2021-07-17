@@ -236,7 +236,7 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     N_FORCES = int(DATASET.pop(0).split(':')[1])
     N_PRESSURES = int(DATASET.pop(0).split(':')[1])
     N_DISPLACEMENTS = int(DATASET.pop(0).split(':')[1])
-    TYPE_PLANE = DATASET.pop(0).split(':')[1]
+    TYPE_PLANE = int(DATASET.pop(0).split(':')[1])
     TYPE_ELEMENT = int(DATASET.pop(0).split(':')[1])
     TYPE_SOLUTION = int(DATASET.pop(0).split(':')[1])
     TYPE_INTEGRATION = int(DATASET.pop(0).split(':')[1])
@@ -535,50 +535,49 @@ def GEOMETRIC_PROPERTIES_1(COORDINATES, ELEMENTS, I_ELEMENT, THICKNESS, AUX_2):
     SECTION_IELEMENT = {'X_E': np.array([[X0, Y0], [X1, Y1], [X2, Y2]]), 'THICKNESS': THICK}
     return SECTION_IELEMENT
 
-# def CONSTITUTIVE_C(TYPE_PLANE, MATERIALS, ELEMENTS, I_ELEMENT):
-#     """
-#     This function determines the matrix responsible for establishing
-#     the constitutive relationship between stress and strain
-#     according to the choosen analysis
-#
-#     Input:
-#     TYPE_PLANE: Type of analysis in the plan (string);
-#                     EPT - Plane Stress
-#                     EPD - Plane Strain
-#     MATERIALS: Materials properties (Python Numpy array);
-#                     ID, YOUNG, POISSON, DENSITY
-#     ELEMENTS: Elements properties (Python Numpy array);
-#                     ID, NODE 0 ... NODE N, MATERIAL ID, THICKNESS ID
-#     I_ELEMENT: ID i element in looping for
-#                     0 and (N_ELEMENTS - 1)
-#
-#     Output:
-#     C: Constitutive matrix in formulation (Python Numpy array);
-#     """
-#     MATERIAL_ID = int(ELEMENTS[I_ELEMENT, 4])
-#     E = MATERIALS[MATERIAL_ID, 0]
-#     NU = MATERIALS[MATERIAL_ID, 1]
-#     # Plane stress
-#     if TYPE_PLANE == 'EPT':
-#         C11 = 1
-#         C12 = NU
-#         C21 = C12
-#         C22 = 1
-#         C33 = 0.5 * (1 - NU)
-#         AUX_1 = E / (1 - NU ** 2)
-#         AUX_2 = np.array([[C11, C12, 0], [C21, C22, 0], [0, 0, C33]])
-#         C = AUX_1 * AUX_2
-#     # Plane strain
-#     elif TYPE_PLANE == 'EPD':
-#         C11 = 1 - NU
-#         C12 = NU
-#         C21 = NU
-#         C22 = 1 - NU
-#         C33 = 0.5 - NU
-#         AUX_1 = E/((1 + NU)*(1 - 2*NU))
-#         AUX_2 = np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]])
-#         C = AUX_1 * AUX_2
-#     return C
+def CONSTITUTIVE_C(TYPE_PLANE, MATERIALS, ELEMENTS, I_ELEMENT):
+    """
+    This function determines the matrix responsible for establishing
+    the constitutive relationship between stress and strain
+    according to the choosen analysis
+
+    Input:
+    TYPE_PLANE: Type of analysis in the plan (string);
+                    EPT - Plane Stress
+                    EPD - Plane Strain
+    MATERIALS: Materials properties (Python Numpy array);
+                    ID, YOUNG, POISSON, DENSITY
+    ELEMENTS: Elements properties (Python Numpy array);
+                    ID, NODE 0 ... NODE N, MATERIAL ID, THICKNESS ID
+    I_ELEMENT: ID i element in looping for
+                    0 and (N_ELEMENTS - 1)
+
+    Output:
+    C: Constitutive matrix in formulation (Python Numpy array);
+    """
+    MATERIAL_ID = int(ELEMENTS[I_ELEMENT, 4])
+    E = MATERIALS[MATERIAL_ID, 0]
+    NU = MATERIALS[MATERIAL_ID, 1]
+    # Plane stress
+    if TYPE_PLANE == 0:
+        C11 = 1
+        C12 = NU
+        C21 = C12
+        C22 = 1
+        C33 = 0.5 * (1 - NU)
+        AUX_1 = E / (1 - NU ** 2)
+        AUX_2 = np.array([[C11, C12, 0], [C21, C22, 0], [0, 0, C33]])
+    # Plane strain
+    elif TYPE_PLANE == 1:
+        C11 = 1 - NU
+        C12 = NU
+        C21 = NU
+        C22 = 1 - NU
+        C33 = 0.5 - NU
+        AUX_1 = E/((1 + NU)*(1 - 2*NU))
+        AUX_2 = np.array([[C11, C12, 0],[C21, C22, 0],[0, 0, C33]])
+    C = AUX_1 * AUX_2
+    return C
 
 def HINGED_PROPERTIES(ELEMENTS):
     HINGES = ELEMENTS[:,4:]
@@ -692,7 +691,7 @@ def DND_ASSEMBLY(N_NODESELEMENT, NX_DIFF):
     ND_DIFF = np.vstack((ND_DIFF_1, ND_DIFF_2))
     return ND_DIFF
 
-def STIFFNESS(NX_DIFF, ND_DIFF, C, X_E):
+def STIFFNESS(NX_DIFF, ND_DIFF, C, X_E, THICK):
     """
     This function assembles the element's stiffness matrix to a Gaussian point
 
@@ -725,7 +724,7 @@ def STIFFNESS(NX_DIFF, ND_DIFF, C, X_E):
                     [0, 1, 1, 0]])
     B = np.dot(np.dot(H, GAMMA_U), ND_DIFF)
     # i element stiffness matrix
-    K_I = THICK * (np.dot(np.dot(B.transpose(), C), np.dot(B, DET_J)))  #### ENTRAR COM ESSE THICK ####
+    K_I = THICK * (np.dot(np.dot(B.transpose(), C), np.dot(B, DET_J)))
     return K_I
 
 def NUMERICAL_INTEGRATION(TYPE_INTEGRATION):
@@ -781,7 +780,8 @@ def ELEMENT_STIFFNESS_1(NUM_INT, N_DOFSELEMENT, TYPE_ELEMENT, N_NODESELEMENT, C_
         ISO_COORDINATES = {'KSI': NUM_INT['KSI'][I_COUNT], 'ETA': NUM_INT['ETA'][I_COUNT]}
         [ND_DIFF, NX_DIFF] = SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT, ISO_COORDINATES)
         X_E = SECTION_IELEMENT['X_E']
-        K_I = STIFFNESS(NX_DIFF, ND_DIFF, C_IELEMENT, X_E)
+        THICK = SECTION_IELEMENT['THICKNESS']
+        K_I = STIFFNESS(NX_DIFF, ND_DIFF, C_IELEMENT, X_E, THICK)
         WEIGHT = NUM_INT['W'][I_COUNT]
         K_IELEMENT += K_I * WEIGHT
     return K_IELEMENT
