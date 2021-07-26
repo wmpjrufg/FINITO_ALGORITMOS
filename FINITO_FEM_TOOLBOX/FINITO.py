@@ -21,15 +21,17 @@ import numpy as np
 
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
-import FINITO_COMMON_LIBRARY as FINITO_CL
-import FINITO_MEF1D_LIBRARY as FINITO_MEF1D
-import FINITO_MEF2D_LIBRARY as FINITO_MEF2D
+import FINITO_FEM_TOOLBOX.FINITO_COMMON_LIBRARY as FINITO_CL
+import FINITO_FEM_TOOLBOX.FINITO_MEF1D_LIBRARY as FINITO_MEF1D
+import FINITO_FEM_TOOLBOX.FINITO_MEF2D_LIBRARY as FINITO_MEF2D
 
 # PROGRAMA DE ELEMENTOS FINITO PARA BARRAS COM DOIS NÓS (1 NÓ POR EXTREMIDADE)
 def MEF1D(**kwargs):
     """ 
     This function performs structural analysis of frame elements with 2 nodes 
     (1 at each end).
+
+    User guide: https://wmpjrufg.github.io/FINITO_TOOLBOX/CAP_2-1.html
     
     Input:
     All inputs kwargs arguments type.
@@ -99,6 +101,8 @@ def MEF1D(**kwargs):
     # Displacement solution 0: Zero and One procedure
     elif TYPE_SOLUTION == 1:
         K_G, F_G = FINITO_CL.ZERO_AND_ONE_METHOD(K_G, F_G, DOF_PRESCRIPTIONS, DOF_PRESCRIPTIONSVALUE)
+        K_FFINVERSE = np.linalg.pinv(K_G, rcond = 1e-15)
+        U_G = np.dot(K_FFINVERSE, F_G)
     # Internal loads
     # Frame division 
     DIV = 11 
@@ -122,7 +126,7 @@ def MEF1D(**kwargs):
         F_ELINT = np.dot(K_JELEMENT, U_JELEMENT)
         # Internal force in j element (by division)
         for I_COUNT in range(DIV):
-            # local axis value
+            # Local axis value
             X = SECTION_JELEMENT[0] * (I_COUNT) / (DIV - 1)
             if I_COUNT == 0:
                 U_X = U_GJELEMENT[0, 0]
@@ -136,11 +140,11 @@ def MEF1D(**kwargs):
                 U_X = -1989
                 U_Y = -1989
                 U_Z = -1989
-            # Internal loads: Axial, Shear and bending moment 
+            # Internal loads: Axial, Shear and Bending Moment 
             N = -F_ELINT[0]
             V = F_ELINT[1]
             M = -F_ELINT[2] + F_ELINT[1] * X         
-            # SAVE RESULTS IN DICTIONARY
+            # Save results in dictioonary
             RESULTS[J_ELEMENT]['X'][I_COUNT] = X
             RESULTS[J_ELEMENT]['UX'][I_COUNT] = U_X
             RESULTS[J_ELEMENT]['UY'][I_COUNT] = U_Y

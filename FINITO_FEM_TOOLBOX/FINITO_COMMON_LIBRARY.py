@@ -117,7 +117,7 @@ def PRESCRIPTIONS_DEGREE_FREEDOM(PRESCRIPTIONS, DOF_GLOBALNODAL):
                                 ?? = [3] -> TYPE_ELEMENT = 0
                                 ?? = [2] -> TYPE_ELEMENT = 1
     PRESCRIPTIONS           | Prescribed DOF displacement properties         | Py Numpy array              
-                                ID, Node, Direction (X = 0, Y = 1, Z = 2), Value  
+                                Node, Direction (X = 0, Y = 1, Z = 2), Value  
 
     Output:
     DOF_PRESCRIPTIONS       | ID prescribed degree of freedom                | Py list [N_DOFSPRESCRIPTIONS]
@@ -257,7 +257,7 @@ def CONDENSE_GLOBAL_FREE_STIFFNESS(K_G, DOF_FREE, N_DOFSFREE):
     N_DOFSFREE  | Total number of free degrees of freedom  | Integer
     
     Output:
-    K_FF        | Free global stiffness matrix                  | Py Numpy array [N_DOFSFREE x N_DOFSFREE]
+    K_FF        | Free global stiffness matrix             | Py Numpy array [N_DOFSFREE x N_DOFSFREE]
     """
     K_FF = np.zeros((N_DOFSFREE, N_DOFSFREE))
     for I_COUNT in range(N_DOFSFREE):
