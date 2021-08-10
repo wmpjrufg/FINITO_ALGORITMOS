@@ -1,3 +1,22 @@
+"""
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░▒▒▒▒▒░░░░░░░░░░▒▒▒▒░░░░░░░░░░░▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░▒▓▓▓▓▓▓▓▒░░░░░░▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░▓▓▓▓▓▓▓▓▓░░░░░░▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░▓▓▓▓▓▓▓░░░░░░░▒▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░██▓▓▓▓▒░░░░░░░▒█▒░░░░░░░░▓█▓░░░░██░░░░░░░░░█▒░░░░░░░▒▓▓▓█▓▓▓░░░░░░░░▒▓▓▓▓▓▓▓░░░░░░
+░░░░░█▓░░░░░░░░░░░░▒█▒░░░░░░░░▓█▓█▒░░██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▒█▒░░░░░▒█▒░░░░
+░░░░░██▓▓▓▓░░░░░░░░▒█▒░░░░░░░░▓▓░▒█▓░██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▓█░░░░░░░█▓░░░░
+░░░░░█▓░░░░░░░░░░░░▒█▒░░░░░░░░▓▓░░░▓▓██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▒█▓░░░░░▓█░░░░░
+░░░░░▓▓░░░░░░░░░░░░▒▓░░░░░░░░░▓▓░░░░▒▓▓░░░░░░░░░▓▒░░░░░░░░░░▒▓░░░░░░░░░░░░▒▓▓▓▓▓▒░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+"""
 ################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
 # WANDERLEI MALAQUIAS PEREIRA JUNIOR,                  ENG. CIVIL / PROF (UFCAT)
@@ -28,19 +47,44 @@ import FINITO_FEM_TOOLBOX.FINITO_MEF2D_LIBRARY as FINITO_MEF2D
 # PROGRAMA DE ELEMENTOS FINITO PARA BARRAS COM DOIS NÓS (1 NÓ POR EXTREMIDADE)
 def MEF1D(**kwargs):
     """ 
-    This function performs structural analysis of frame elements with 2 nodes 
-    (1 at each end).
-
-    User guide: https://wmpjrufg.github.io/FINITO_TOOLBOX/CAP_2-1.html
-    
+    This function performs structural analysis of frame elements with 2 nodes (1 at each end).
+  
     Input:
     All inputs kwargs arguments type.
 
-    FILENAME    | Structural dataset                      | .txt extension
-    DICTIONARY  | Structural dataset                      | Py dictionary
+    FILENAME    | Structural dataset                                                 | .txt extension
+    DICTIONARY  | Structural dataset                                                 | Py dictionary
+                |   Dictionary and file tags                                         |
+                |    TYPE_ELEMENT  = Type element in Finito algorithm                | Integer 
+                |     0 - Frame bar element                                          |
+                |    TYPE_SOLUTION = Boundary conditions in system of equations      | Integer
+                |     0 - Condense procedure                                         |
+                |     1 - Zero and One algorithm                                     |
+                |   N_NODES        = Number of nodes                                 | Integer
+                |   N_MATERIALS    = Number of materials                             | Integer
+                |   N_SECTIONS     = Number of sections                              | Integer
+                |   N_ELEMENTS     = Number of frame elements                        | Integer
+                |   N_DOFPRESCRIPTIONS = Number of DOF displacement control          | Integer
+                |   N_DOFLOADED        = Number of DOF forces                        | Integer
+                |   N_DOFSPRINGS       = Number of DOF spring elements               | Integer
+                |   COORDINATES        = Coordinates properties                      | Py Numpy array
+                |                          Node, x, y                                |
+                |   ELEMENTS       = Elements properties                             | Py Numpy array
+                |                    Node 0 ... Node (N_NODES - 1), Material ID,     | 
+                |                    Geometry ID, Hinge ID node 0, Hinge ID node 1   |
+                |   MATERIALS      = Materials properties                            | Py Numpy array
+                |                    Young, Poisson, Density, Thermal coefficient    |
+                |   SECTIONS       = Sections properties                             | Py Numpy array
+                |                    Area, Inertia 1, Inertia Frame bar, X GC, Y GC  |
+                |   PRESCRIPTIONS  = Prescribed DOF displacement properties          | Py Numpy array              
+                |                    Node, Direction (X = 0, Y = 1, Z = 2), Value    | 
+                |   NODAL_LOAD     = Nodal DOF force properties                      | Py Numpy array              
+                |                    Node, Direction (X = 0, Y = 1, Z = 2), Value    |
+                |   SPRINGS        = Nodal DOF spring properties                     | Py Numpy array              
+                                     Node, Direction (X = 0, Y = 1, Z = 2), Value    |
 
     Output:
-    RESULTS     | Structural analysis results by element  | Py dictionary
+    RESULTS     | Structural analysis results by element                             | Py dictionary
     """
     # Read input file
     FILENAME = kwargs.get('FILENAME')
@@ -154,7 +198,6 @@ def MEF1D(**kwargs):
             RESULTS[J_ELEMENT]['M'][I_COUNT] = M
     return RESULTS
 
-
 def MEF2D(**kwargs):
     """ 
     This function performs structural analysis via finite elements conside-
@@ -206,3 +249,21 @@ def MEF2D(**kwargs):
         U_G = np.linalg.solve(K_G, F_G)
     RESULTS = U_G
     return RESULTS
+
+#  /$$$$$$$$ /$$$$$$ /$$   /$$ /$$$$$$ /$$$$$$$$  /$$$$$$        /$$$$$$$$  /$$$$$$   /$$$$$$  /$$       /$$$$$$$   /$$$$$$  /$$   /$$                                
+# | $$_____/|_  $$_/| $$$ | $$|_  $$_/|__  $$__/ /$$__  $$      |__  $$__/ /$$__  $$ /$$__  $$| $$      | $$__  $$ /$$__  $$| $$  / $$                                
+# | $$        | $$  | $$$$| $$  | $$     | $$   | $$  \ $$         | $$   | $$  \ $$| $$  \ $$| $$      | $$  \ $$| $$  \ $$|  $$/ $$/                                
+# | $$$$$     | $$  | $$ $$ $$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$$$$$$ | $$  | $$ \  $$$$/                                 
+# | $$__/     | $$  | $$  $$$$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$__  $$| $$  | $$  >$$  $$                                 
+# | $$        | $$  | $$\  $$$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$  \ $$| $$  | $$ /$$/\  $$                                
+# | $$       /$$$$$$| $$ \  $$ /$$$$$$   | $$   |  $$$$$$/         | $$   |  $$$$$$/|  $$$$$$/| $$$$$$$$| $$$$$$$/|  $$$$$$/| $$  \ $$                                
+# |__/      |______/|__/  \__/|______/   |__/    \______/          |__/    \______/  \______/ |________/|_______/  \______/ |__/  |__/                                                                                                                                                                                                                                                                                                                                                                   
+                                                                                                                                                                    
+#   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$ 
+#  /$$__  $$| $$__  $$| $$_____/| $$_____/      |__  $$__/| $$_____/ /$$__  $$| $$  | $$| $$$ | $$ /$$__  $$| $$       /$$__  $$ /$$__  $$|_  $$_/| $$_____/ /$$__  $$
+# | $$  \__/| $$  \ $$| $$      | $$               | $$   | $$      | $$  \__/| $$  | $$| $$$$| $$| $$  \ $$| $$      | $$  \ $$| $$  \__/  | $$  | $$      | $$  \__/
+# | $$ /$$$$| $$$$$$$/| $$$$$   | $$$$$            | $$   | $$$$$   | $$      | $$$$$$$$| $$ $$ $$| $$  | $$| $$      | $$  | $$| $$ /$$$$  | $$  | $$$$$   |  $$$$$$ 
+# | $$|_  $$| $$____/ | $$__/   | $$__/            | $$   | $$__/   | $$      | $$__  $$| $$  $$$$| $$  | $$| $$      | $$  | $$| $$|_  $$  | $$  | $$__/    \____  $$
+# | $$  \ $$| $$      | $$      | $$               | $$   | $$      | $$    $$| $$  | $$| $$\  $$$| $$  | $$| $$      | $$  | $$| $$  \ $$  | $$  | $$       /$$  \ $$
+# |  $$$$$$/| $$      | $$$$$$$$| $$$$$$$$         | $$   | $$$$$$$$|  $$$$$$/| $$  | $$| $$ \  $$|  $$$$$$/| $$$$$$$$|  $$$$$$/|  $$$$$$/ /$$$$$$| $$$$$$$$|  $$$$$$/
+#  \______/ |__/      |________/|________/         |__/   |________/ \______/ |__/  |__/|__/  \__/ \______/ |________/ \______/  \______/ |______/|________/ \______/ 

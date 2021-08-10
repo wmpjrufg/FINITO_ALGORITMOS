@@ -1,3 +1,22 @@
+"""
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░▒▒▒▒▒░░░░░░░░░░▒▒▒▒░░░░░░░░░░░▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░▒▓▓▓▓▓▓▓▒░░░░░░▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░▓▓▓▓▓▓▓▓▓░░░░░░▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░▓▓▓▓▓▓▓░░░░░░░▒▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░██▓▓▓▓▒░░░░░░░▒█▒░░░░░░░░▓█▓░░░░██░░░░░░░░░█▒░░░░░░░▒▓▓▓█▓▓▓░░░░░░░░▒▓▓▓▓▓▓▓░░░░░░
+░░░░░█▓░░░░░░░░░░░░▒█▒░░░░░░░░▓█▓█▒░░██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▒█▒░░░░░▒█▒░░░░
+░░░░░██▓▓▓▓░░░░░░░░▒█▒░░░░░░░░▓▓░▒█▓░██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▓█░░░░░░░█▓░░░░
+░░░░░█▓░░░░░░░░░░░░▒█▒░░░░░░░░▓▓░░░▓▓██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▒█▓░░░░░▓█░░░░░
+░░░░░▓▓░░░░░░░░░░░░▒▓░░░░░░░░░▓▓░░░░▒▓▓░░░░░░░░░▓▒░░░░░░░░░░▒▓░░░░░░░░░░░░▒▓▓▓▓▓▒░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+"""
 ################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
 # WANDERLEI MALAQUIAS PEREIRA JUNIOR,                  ENG. CIVIL / PROF (UFCAT)
@@ -29,33 +48,33 @@ def GET_VALUE_FROM_DICT_MEF2D_FINITO(DICTIONARY):
     FILENAME             | Structural dataset                                     | Py dictionary
 
     Output: 
-    N_NODES              | Number of nodes                                        | integer
-    N_MATERIALS          | Number of materials                                    | integer
-    N_THICKNESS          | Number of thicness                                     | integer
-    N_ELEMENTS           | Number of CST element                                  | integer *********************
-    N_FORCES             | Number of nodal forces                                 | integer
-    N_PRESSURES          | Number of element pressures                            | integer
-    N_DISPLACEMENTS      | Number of nodal displacement control                   | integer
-    TYPE_PLANE           | Type of analysis in the plan                           | string
-                               'EPT' - Plane Stress
-                               'EPD' - Plane Strain
-    TYPE_ELEMENT         | Type element in Finito algorithm                       | integer 
-                               0 - Frame bar element
-                               1 - CST surface element
-    TYPE_SOLUTION        | Solution of the system of equations                    | integer
-                               0 - Condense procedure
-                               1 - 0 and 1 algorithm
-    TYPE_INTEGRATION     | Type numerical integration                             | string
-                               1 - Hammer 12 points integration
+    N_NODES              | Number of nodes                                        | Integer
+    N_MATERIALS          | Number of materials                                    | Integer
+    N_THICKNESS          | Number of thicness                                     | Integer
+    N_ELEMENTS           | Number of CST element                                  | Integer
+    N_FORCES             | Number of nodal forces                                 | Integer
+    N_PRESSURES          | Number of element pressures                            | Integer
+    N_DISPLACEMENTS      | Number of nodal displacement control                   | Integer
+    TYPE_PLANE           | Type of analysis in the plan                           | String
+                         |      'EPT' - Plane Stress                              |
+                         |      'EPD' - Plane Strain                              |
+    TYPE_ELEMENT         | Type element in Finito algorithm                       | Integer 
+                         |      0 - Frame bar element                             |
+                         |      1 - CST surface element                           |
+    TYPE_SOLUTION        | Solution of the system of equations                    | Integer
+                         |      0 - Condense procedure                            |
+                         |      1 - 0 and 1 algorithm                             |
+    TYPE_INTEGRATION     | Type numerical integration                             | String
+                         |      1 - Hammer 12 points integration                  |
     COORDINATES          | Coordinates properties                                 | Py Numpy array
-                               Node, X, Y
+                         |      Node, X, Y                                        |
     MATERIALS            | Materials properties                                   | Py Numpy array
-                               ID, Young, Poisson, Density
+                         |      ID, Young, Poisson, Density                       |
     THICKNESS            | Thickness properties                                   | Py Numpy array
-                               ID, Thickness
+                         |      ID, Thickness                                     |
     ELEMENTS             | Elements properties                                    | Py Numpy array
-                               ID, Node 0 ... Node (N_DODES - 1), Material ID, 
-                               Thickness ID
+                         |      ID, Node 0 ... Node (N_DODES - 1), Material ID,   |
+                         |      Thickness ID                                      |
     NODAL_EXTERNAL_LOAD  | Nodal force properties                                 | Py Numpy array              
                                ID, node ID, FX value, FY value 
     # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -64,7 +83,8 @@ def GET_VALUE_FROM_DICT_MEF2D_FINITO(DICTIONARY):
     
     # # # # # # # # # # # # # # # # # # # # # # # # #
     PRESCRIPTIONS:       | Displacement properties                                | Py Numpy array  
-                               ID, Node ID, Direction ('X', Y' and 'BOTH'), Displacement value 
+                         |  ID, Node ID, Direction ('X', Y' and 'BOTH'), Displa-  |
+                         |  cement value                                          |
     """
     N_NODES = DICTIONARY["N_NODES"]
     N_MATERIALS = DICTIONARY["N_MATERIALS"]
@@ -95,33 +115,33 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     FILENAME             | Structural dataset                                     | .txt extension
 
     Output: 
-    N_NODES              | Number of nodes                                        | integer
-    N_MATERIALS          | Number of materials                                    | integer
-    N_THICKNESS          | Number of thicness                                     | integer
-    N_ELEMENTST          | Number of CST element                                  | integer *********************
-    N_FORCES             | Number of nodal forces                                 | integer
-    N_PRESSURES          | Number of element pressures                            | integer
-    N_DISPLACEMENTS      | Number of nodal displacement control                   | integer
-    TYPE_PLANE           | Type of analysis in the plan                           | string
-                               'EPT' - Plane Stress
-                               'EPD' - Plane Strain
-    TYPE_ELEMENT         | Type element in Finito algorithm                       | integer 
-                               0 - Frame bar element
-                               1 - CST surface element
-    TYPE_SOLUTION        | Solution of the system of equations                    | integer
-                               0 - Condense procedure
-                               1 - 0 and 1 algorithm
-    TYPE_INTEGRATION     | Type numerical integration                             | string
-                               'HAMMER-12' - Hammer 12 points integration
+    N_NODES              | Number of nodes                                        | Integer
+    N_MATERIALS          | Number of materials                                    | Integer
+    N_THICKNESS          | Number of thicness                                     | Integer
+    N_ELEMENTS           | Number of CST element                                  | Integer
+    N_FORCES             | Number of nodal forces                                 | Integer
+    N_PRESSURES          | Number of element pressures                            | Integer
+    N_DISPLACEMENTS      | Number of nodal displacement control                   | Integer
+    TYPE_PLANE           | Type of analysis in the plan                           | String
+                         |      'EPT' - Plane Stress                              |
+                         |      'EPD' - Plane Strain                              |
+    TYPE_ELEMENT         | Type element in Finito algorithm                       | Integer 
+                         |      0 - Frame bar element                             |
+                         |      1 - CST surface element                           |
+    TYPE_SOLUTION        | Solution of the system of equations                    | Integer
+                         |      0 - Condense procedure                            |
+                         |      1 - 0 and 1 algorithm                             |
+    TYPE_INTEGRATION     | Type numerical integration                             | String
+                         |      1 - Hammer 12 points integration                  |
     COORDINATES          | Coordinates properties                                 | Py Numpy array
-                               Node, X, Y
+                         |      Node, X, Y                                        |
     MATERIALS            | Materials properties                                   | Py Numpy array
-                               ID, Young, Poisson, Density
+                         |      ID, Young, Poisson, Density                       |
     THICKNESS            | Thickness properties                                   | Py Numpy array
-                               ID, Thickness
+                         |      ID, Thickness                                     |
     ELEMENTS             | Elements properties                                    | Py Numpy array
-                               ID, Node 0 ... Node (N_DODES - 1), Material ID, 
-                               Thickness ID
+                         |      ID, Node 0 ... Node (N_DODES - 1), Material ID,   |
+                         |      Thickness ID                                      |
     NODAL_EXTERNAL_LOAD  | Nodal force properties                                 | Py Numpy array              
                                ID, node ID, FX value, FY value 
     # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -130,7 +150,8 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
     
     # # # # # # # # # # # # # # # # # # # # # # # # #
     PRESCRIPTIONS:       | Displacement properties                                | Py Numpy array  
-                               ID, Node ID, Direction ('X', Y' and 'BOTH'), Displacement value 
+                         |  ID, Node ID, Direction ('X', Y' and 'BOTH'), Displa-  |
+                         |  cement value                                          |
     """
     # Read input file general properties
     FILE = open(FILENAME, "r")
@@ -238,30 +259,26 @@ def GET_VALUE_FROM_TXT_MEF2D_FINITO(FILENAME):
             COUNT += 1
     return N_NODES, N_MATERIALS, N_THICKNESS, N_ELEMENTS, N_ELEMENTST6, N_ELEMENTST10, N_FORCES, N_PRESSURES, N_DISPLACEMENTS, TYPE_PLANE, TYPE_ELEMENT, TYPE_SOLUTION, TYPE_INTEGRATION, COORDINATES, MATERIALS, THICKNESS, ELEMENTS, NODAL_EXTERNAL_LOAD, PRESCRIPTIONS
 
+# ORGANIZAÇÃO DAS PROPRIEDADES GEOMÉTRICAS DO ELEMENTO I TIPO PLANO
 def GEOMETRIC_PROPERTIES_1(COORDINATES, ELEMENTS, I_ELEMENT, THICKNESS, AUX_2):
     """ 
-    This function assigns the surface element's geometric propertiest of the I_ELEMENT 
-    element TYPE_ELEMENT = 1 (CST element)
+    This function assigns the surface element's geometric propertiest of the I_ELEMENT element TYPE_ELEMENT = 1 (CST element).
     
     Input:
     COORDINATES        | Coordinates properties                                | Py Numpy array
-                            Node, x, y
+                       |    Node, x, y                                         |
     ELEMENTS           | Elements properties                                   | Py Numpy array
-                            Node 0 ... Node (N_NODES - 1), Material ID,
-                            Thickness ID 
+                       |    Node 0 ... Node (N_NODES - 1), Material ID,        |
+                       |    Thickness ID                                       |
     THICKNESS          | Thickness properties                                  | Py Numpy array
-                            Thickness
-    I_ELEMENT          | ID i element in looping for
+                       |    Thickness                                          |
+    I_ELEMENT          | ID i element in looping for                           | Integer
     AUX_2              | ID thickness                                          | Integer
 
     Output: 
-    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py list [6]
-                            [0] - Length
-                            [1] - Sine
-                            [2] - Cosine
-                            [3] - Area
-                            [4] - Inertia auxiliar
-                            [5] - Inertia frame element
+    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py dictionary
+                       |     ['X_E']       - Elements coordinates              |                                   
+                       |     ['THICKNESS'] - Sine                              |
     """
     NODE_0 = int(ELEMENTS[I_ELEMENT, 0])
     X0, Y0 = COORDINATES[NODE_0, 0], COORDINATES[NODE_0, 1]
@@ -274,25 +291,24 @@ def GEOMETRIC_PROPERTIES_1(COORDINATES, ELEMENTS, I_ELEMENT, THICKNESS, AUX_2):
     SECTION_IELEMENT = {'X_E': np.array([[X0, Y0], [X1, Y1], [X2, Y2]]), 'THICKNESS': THICK}
     return SECTION_IELEMENT
 
+# MATRIZ CONSTITUTIVA DO ELEMENTO TIPO PLANO
 def CONSTITUTIVE_C(TYPE_PLANE, MATERIALS, ELEMENTS, I_ELEMENT):
     """
-    This function determines the matrix responsible for establishing
-    the constitutive relationship between stress and strain
-    according to the choosen analysis
+    This function determines the matrix responsible for establishing the constitutive relationship between stress and strain according to the choosen analysis.
 
     Input:
-    TYPE_PLANE  | Type of analysis in the plan                                  | String
-                               'EPT' - Plane Stress
-                               'EPD' - Plane Strain
-    MATERIALS   | Materials properties                                          | Py Numpy array
-                               ID, Young, Poisson, Density
-    ELEMENTS    | Elements properties                                           | Py Numpy array
-                               ID, Node 0 ... Node (N_DODES - 1), Material ID, 
-                               Thickness ID
-    I_ELEMENT   | ID i element in looping for
+    TYPE_PLANE  | Type of analysis in the plan                           | String
+                |      'EPT' - Plane Stress                              |
+                |      'EPD' - Plane Strain                              |
+    MATERIALS   | Materials properties                                   | Py Numpy array
+                |      ID, Young, Poisson, Density                       |
+    ELEMENTS    | Elements properties                                    | Py Numpy array
+                |    Node 0 ... Node (N_NODES - 1), Material ID,         |
+                |    Thickness ID                                        |
+    I_ELEMENT   | ID i element in looping for                            | Integer
 
     Output:
-    C           | Constitutive matrix                                           | Py Numpy array [3 x 3]
+    C           | Constitutive matrix                                    | Py Numpy array[3 x 3]
     """
     MATERIAL_ID = int(ELEMENTS[I_ELEMENT, 4])
     E = MATERIALS[MATERIAL_ID, 0]
@@ -323,9 +339,9 @@ def SHAPE_FUNCTIONS(TYPE_ELEMENT, N_NODESELEMENT, ISO_COORDINATES):
     This function creates the matrix of the derivatives of the shape functions
 
     Input:
-    TYPE_ELEMENT       | Type element in Finito algorithm                      | Integer 
-                0 - Frame bar element
-                1 - CST surface element
+    TYPE_ELEMENT         | Type element in Finito algorithm                       | Integer 
+                         |      0 - Frame bar element                             |
+                         |      1 - CST surface element                           |
     N_NODESELEMENT: Number of nodes per element (integer);
     ISO_COORDINATES: Isoparametric coordinates (Python dictionary);
 
@@ -462,3 +478,21 @@ def ELEMENT_STIFFNESS_1(NUM_INT, N_DOFSELEMENT, TYPE_ELEMENT, N_NODESELEMENT, C_
         WEIGHT = NUM_INT['W'][I_COUNT]
         K_IELEMENT += K_I * WEIGHT
     return K_IELEMENT
+
+#  /$$$$$$$$ /$$$$$$ /$$   /$$ /$$$$$$ /$$$$$$$$  /$$$$$$        /$$$$$$$$  /$$$$$$   /$$$$$$  /$$       /$$$$$$$   /$$$$$$  /$$   /$$                                
+# | $$_____/|_  $$_/| $$$ | $$|_  $$_/|__  $$__/ /$$__  $$      |__  $$__/ /$$__  $$ /$$__  $$| $$      | $$__  $$ /$$__  $$| $$  / $$                                
+# | $$        | $$  | $$$$| $$  | $$     | $$   | $$  \ $$         | $$   | $$  \ $$| $$  \ $$| $$      | $$  \ $$| $$  \ $$|  $$/ $$/                                
+# | $$$$$     | $$  | $$ $$ $$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$$$$$$ | $$  | $$ \  $$$$/                                 
+# | $$__/     | $$  | $$  $$$$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$__  $$| $$  | $$  >$$  $$                                 
+# | $$        | $$  | $$\  $$$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$  \ $$| $$  | $$ /$$/\  $$                                
+# | $$       /$$$$$$| $$ \  $$ /$$$$$$   | $$   |  $$$$$$/         | $$   |  $$$$$$/|  $$$$$$/| $$$$$$$$| $$$$$$$/|  $$$$$$/| $$  \ $$                                
+# |__/      |______/|__/  \__/|______/   |__/    \______/          |__/    \______/  \______/ |________/|_______/  \______/ |__/  |__/                                                                                                                                                                                                                                                                                                                                                                   
+                                                                                                                                                                    
+#   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$ 
+#  /$$__  $$| $$__  $$| $$_____/| $$_____/      |__  $$__/| $$_____/ /$$__  $$| $$  | $$| $$$ | $$ /$$__  $$| $$       /$$__  $$ /$$__  $$|_  $$_/| $$_____/ /$$__  $$
+# | $$  \__/| $$  \ $$| $$      | $$               | $$   | $$      | $$  \__/| $$  | $$| $$$$| $$| $$  \ $$| $$      | $$  \ $$| $$  \__/  | $$  | $$      | $$  \__/
+# | $$ /$$$$| $$$$$$$/| $$$$$   | $$$$$            | $$   | $$$$$   | $$      | $$$$$$$$| $$ $$ $$| $$  | $$| $$      | $$  | $$| $$ /$$$$  | $$  | $$$$$   |  $$$$$$ 
+# | $$|_  $$| $$____/ | $$__/   | $$__/            | $$   | $$__/   | $$      | $$__  $$| $$  $$$$| $$  | $$| $$      | $$  | $$| $$|_  $$  | $$  | $$__/    \____  $$
+# | $$  \ $$| $$      | $$      | $$               | $$   | $$      | $$    $$| $$  | $$| $$\  $$$| $$  | $$| $$      | $$  | $$| $$  \ $$  | $$  | $$       /$$  \ $$
+# |  $$$$$$/| $$      | $$$$$$$$| $$$$$$$$         | $$   | $$$$$$$$|  $$$$$$/| $$  | $$| $$ \  $$|  $$$$$$/| $$$$$$$$|  $$$$$$/|  $$$$$$/ /$$$$$$| $$$$$$$$|  $$$$$$/
+#  \______/ |__/      |________/|________/         |__/   |________/ \______/ |__/  |__/|__/  \__/ \______/ |________/ \______/  \______/ |______/|________/ \______/ 

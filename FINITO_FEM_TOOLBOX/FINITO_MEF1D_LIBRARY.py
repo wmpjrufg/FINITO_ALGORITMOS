@@ -1,3 +1,22 @@
+"""
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░▒▒▒▒▒░░░░░░░░░░▒▒▒▒░░░░░░░░░░░▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░▒▓▓▓▓▓▓▓▒░░░░░░▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░▓▓▓▓▓▓▓▓▓░░░░░░▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░▓▓▓▓▓▓▓░░░░░░░▒▒▒▒▒▒▒░░░░░░░░▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░██▓▓▓▓▒░░░░░░░▒█▒░░░░░░░░▓█▓░░░░██░░░░░░░░░█▒░░░░░░░▒▓▓▓█▓▓▓░░░░░░░░▒▓▓▓▓▓▓▓░░░░░░
+░░░░░█▓░░░░░░░░░░░░▒█▒░░░░░░░░▓█▓█▒░░██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▒█▒░░░░░▒█▒░░░░
+░░░░░██▓▓▓▓░░░░░░░░▒█▒░░░░░░░░▓▓░▒█▓░██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▓█░░░░░░░█▓░░░░
+░░░░░█▓░░░░░░░░░░░░▒█▒░░░░░░░░▓▓░░░▓▓██░░░░░░░░░█▒░░░░░░░░░░▒█░░░░░░░░░░▒█▓░░░░░▓█░░░░░
+░░░░░▓▓░░░░░░░░░░░░▒▓░░░░░░░░░▓▓░░░░▒▓▓░░░░░░░░░▓▒░░░░░░░░░░▒▓░░░░░░░░░░░░▒▓▓▓▓▓▒░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+"""
 ################################################################################
 # UNIVERSIDADE FEDERAL DE CATALÃO (UFCAT)
 # WANDERLEI MALAQUIAS PEREIRA JUNIOR,                  ENG. CIVIL / PROF (UFCAT)
@@ -21,6 +40,7 @@ import numpy as np
 ################################################################################
 # BIBLIOTECAS DESENVOLVEDORES GPEE
 
+# LEITURA DO ARQUIVO TIPO .TXT
 def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
     """
     This function reads data from .txt file.
@@ -30,10 +50,10 @@ def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
 
     Output: 
     TYPE_ELEMENT          | Type element in Finito algorithm                       | Integer 
-                               0 - Frame bar element    
+                          |     0 - Frame bar element                              |
     TYPE_SOLUTION         | Solution of the system of equations                    | Integer
-                               0 - Condense procedure
-                               1 - Zero and One algorithm    
+                          |    0 - Condense procedure                              |
+                          |    1 - Zero and One algorithm                          |
     N_NODES               | Number of nodes                                        | Integer
     N_MATERIALS           | Number of materials                                    | Integer
     N_SECTIONS            | Number of sections                                     | Integer
@@ -42,20 +62,20 @@ def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
     N_DOFLOADED           | Number of DOF forces                                   | Integer
     N_DOFSPRINGS          | Number of DOF spring elements                          | Integer
     COORDINATES           | Coordinates properties                                 | Py Numpy array
-                               Node, x, y
+                          |    Node, x, y                                          |
     ELEMENTS              | Elements properties                                    | Py Numpy array
-                               Node 0 ... Node (N_NODES - 1), Material ID, 
-                               Geometry ID, Hinge ID node 0, Hinge ID node 1
+                          |    Node 0 ... Node (N_NODES - 1), Material ID,         | 
+                          |    Geometry ID, Hinge ID node 0, Hinge ID node 1       |
     MATERIALS             | Materials properties                                   | Py Numpy array
-                               Young, Poisson, Density, Thermal coefficient
+                          |    Young, Poisson, Density, Thermal coefficient        |
     SECTIONS              | Sections properties                                    | Py Numpy array
-                               Area, Inertia 1, Inertia Frame bar, X GC, Y GC
+                          |    Area, Inertia 1, Inertia Frame bar, X GC, Y GC      |
     PRESCRIPTIONS         | Prescribed DOF displacement properties                 | Py Numpy array              
-                               Node, Direction (X = 0, Y = 1, Z = 2), Value 
+                          |    Node, Direction (X = 0, Y = 1, Z = 2), Value        | 
     NODAL_LOAD            | Nodal DOF force properties                             | Py Numpy array              
-                               Node, Direction (X = 0, Y = 1, Z = 2), Value
+                          |    Node, Direction (X = 0, Y = 1, Z = 2), Value        |
     SPRINGS               | Nodal DOF spring properties                            | Py Numpy array              
-                               Node, Direction (X = 0, Y = 1, Z = 2), Value 
+                          |    Node, Direction (X = 0, Y = 1, Z = 2), Value        |
     """
     # Open file and read dataset
     FILE = open(FILENAME, "r")
@@ -122,7 +142,11 @@ def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
     DATASET.pop(0)
     DATASET.pop(0)
     """
-    # Element load *Under development
+    **** Under development ****
+    ****                   ****
+    ****                   ****
+
+    # Element load **** Under development ****
     if N_ELEMENTSLOADED == 0:
         DATASET.pop(0)
         ELEMENT_EXTERNAL_LOAD = "null"
@@ -136,6 +160,10 @@ def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
             ELEMENT_EXTERNAL_LOAD[int(VALUES[0]),3] = float(VALUES[4])
     DATASET.pop(0)
     DATASET.pop(0)
+
+    ****                   ****
+    ****                   ****
+    **** Under development ****
     """
     # Nodal DOF load
     NODAL_LOAD = np.zeros((N_DOFLOADED, 3))
@@ -159,6 +187,7 @@ def GET_VALUE_FROM_TXT_MEF1D_FINITO(FILENAME):
             SPRINGS[int(VALUES[0]),2] = float(VALUES[3]) 
     return TYPE_SOLUTION, TYPE_ELEMENT, N_NODES, N_MATERIALS, N_SECTIONS, N_ELEMENTS, N_DOFPRESCRIPTIONS, N_DOFLOADED, N_DOFSPRINGS, COORDINATES, ELEMENTS, MATERIALS, SECTIONS, PRESCRIPTIONS, NODAL_LOAD, SPRINGS
 
+# LEITURA DO ARQUIVO DICIONÁRIO
 def GET_VALUE_FROM_DICT_MEF1D_FINITO(DICTIONARY):
     """
     This function reads data from dictionary.
@@ -168,10 +197,10 @@ def GET_VALUE_FROM_DICT_MEF1D_FINITO(DICTIONARY):
 
     Output: 
     TYPE_ELEMENT          | Type element in Finito algorithm                       | Integer 
-                               0 - Frame bar element    
+                          |     0 - Frame bar element                              |
     TYPE_SOLUTION         | Solution of the system of equations                    | Integer
-                               0 - Condense procedure
-                               1 - Zero and One algorithm    
+                          |    0 - Condense procedure                              |
+                          |    1 - Zero and One algorithm                          |
     N_NODES               | Number of nodes                                        | Integer
     N_MATERIALS           | Number of materials                                    | Integer
     N_SECTIONS            | Number of sections                                     | Integer
@@ -180,21 +209,22 @@ def GET_VALUE_FROM_DICT_MEF1D_FINITO(DICTIONARY):
     N_DOFLOADED           | Number of DOF forces                                   | Integer
     N_DOFSPRINGS          | Number of DOF spring elements                          | Integer
     COORDINATES           | Coordinates properties                                 | Py Numpy array
-                               Node, x, y
+                          |    Node, x, y                                          |
     ELEMENTS              | Elements properties                                    | Py Numpy array
-                               Node 0 ... Node (N_NODES - 1), Material ID, 
-                               Geometry ID, Hinge ID node 1, Hinge ID node 2
+                          |    Node 0 ... Node (N_NODES - 1), Material ID,         | 
+                          |    Geometry ID, Hinge ID node 0, Hinge ID node 1       |
     MATERIALS             | Materials properties                                   | Py Numpy array
-                               Young, Poisson, Density, Thermal coefficient
+                          |    Young, Poisson, Density, Thermal coefficient        |
     SECTIONS              | Sections properties                                    | Py Numpy array
-                               Area, Inertia 1, Inertia Frame bar, X GC, Y GC
+                          |    Area, Inertia 1, Inertia Frame bar, X GC, Y GC      |
     PRESCRIPTIONS         | Prescribed DOF displacement properties                 | Py Numpy array              
-                               Node, Direction (X = 0, Y = 1, Z = 2), Value 
-    NODAL_LOAD     | Nodal DOF force properties                                    | Py Numpy array              
-                               Node, Direction (X = 0, Y = 1, Z = 2), Value
+                          |    Node, Direction (X = 0, Y = 1, Z = 2), Value        | 
+    NODAL_LOAD            | Nodal DOF force properties                             | Py Numpy array              
+                          |    Node, Direction (X = 0, Y = 1, Z = 2), Value        |
     SPRINGS               | Nodal DOF spring properties                            | Py Numpy array              
-                               Node, Direction (X = 0, Y = 1, Z = 2), Value 
+                          |    Node, Direction (X = 0, Y = 1, Z = 2), Value        |
     """
+    # Read dataset
     TYPE_ELEMENT = DICTIONARY["TYPE_ELEMENT"]
     TYPE_SOLUTION = DICTIONARY["TYPE_SOLUTION"]
     N_NODES = DICTIONARY["N_NODES"]
@@ -213,27 +243,27 @@ def GET_VALUE_FROM_DICT_MEF1D_FINITO(DICTIONARY):
     SPRINGS = DICTIONARY["SPRINGS"]
     return TYPE_SOLUTION, TYPE_ELEMENT, N_NODES, N_MATERIALS, N_SECTIONS, N_ELEMENTS, N_DOFPRESCRIPTIONS, N_DOFLOADED, N_DOFSPRINGS, COORDINATES, ELEMENTS, MATERIALS, SECTIONS, PRESCRIPTIONS, NODAL_LOAD, SPRINGS
 
+# ORGANIZAÇÃO DAS PROPRIEDADES DO MATERIAL DO ELEMENTO I 
 def MATERIALS_PROPERTIES_0(ELEMENTS, MATERIALS, I_ELEMENT, AUX_1):
     """
-    This function creates a vector with the material information 
-    of the I_ELEMENT element TYPE_ELEMENT = 0 (Frame element).
+    This function creates a vector with the material information of the I_ELEMENT element TYPE_ELEMENT = 0 (Frame element).
 
     Input:
     ELEMENTS           | Elements properties                                   | Py Numpy array
-                            ID, Node 0 ... Node (N_NODES - 1), Material ID, 
-                            Geometry ID, Hinge ID node 1, Hinge ID node 2    
+                       |    ID, Node 0 ... Node (N_NODES - 1), Material ID ,   |
+                       |    Geometry ID, Hinge ID node 1, Hinge ID node 2      |
     MATERIALS          | Materials properties                                  | Py Numpy array
-                            ID, Young, Poisson, Density, Thermal coefficient
+                       |     ID, Young, Poisson, Density, Thermal coefficient  |
     I_ELEMENT          | i element in looping                                  | Integer
     AUX_1              | ID material                                           | Integer
     
     Output:
-    MATERIAL_IELEMENT  | Material I_ELEMENT properties                         | Py list [5]
-                            [0] - Young
-                            [1] - Shear modulus
-                            [2] - Poisson
-                            [3] - Thermal coefficient
-                            [4] - Density
+    MATERIAL_IELEMENT  | Material I_ELEMENT properties                         | Py list[5]
+                       |     [0] - Young                                       |
+                       |     [1] - Shear modulus                               |
+                       |     [2] - Poisson                                     |
+                       |     [3] - Thermal coefficient                         |
+                       |     [4] - Density                                     |
     """
     MATERIAL_ID = int(ELEMENTS[I_ELEMENT, AUX_1])
     E = MATERIALS[MATERIAL_ID, 0]
@@ -244,30 +274,30 @@ def MATERIALS_PROPERTIES_0(ELEMENTS, MATERIALS, I_ELEMENT, AUX_1):
     MATERIAL_IELEMENT = [E, G, NU, ALPHA, PHO]
     return MATERIAL_IELEMENT
 
+# ORGANIZAÇÃO DAS PROPRIEDADES GEOMÉTRICAS DO ELEMENTO I TIPO FRAME
 def GEOMETRIC_PROPERTIES_0(COORDINATES, ELEMENTS, SECTIONS, I_ELEMENT, AUX_2):
     """ 
-    This function assigns the bar element's geometric propertiest of the I_ELEMENT 
-    element TYPE_ELEMENT = 0 (Frame element).
+    This function assigns the bar element's geometric propertiest of the I_ELEMENT element TYPE_ELEMENT = 0 (Frame element).
 
     Input:
     COORDINATES        | Coordinates properties                                | Py Numpy array
-                            Node, x, y
+                       |     Node, x, y                                        |
     ELEMENTS           | Elements properties                                   | Py Numpy array
-                            Node 0 ... Node (N_NODES - 1), Material ID, 
-                            Geometry ID, Hinge ID node 1, Hinge ID node 2       
+                       |    Node 0 ... Node (N_NODES - 1), Material ID,        |
+                       |    Geometry ID, Hinge ID node 1, Hinge ID node 2      | 
     SECTIONS           | Sections properties                                   | Py Numpy array
-                            Area, Inertia 1, Inertia Frame bar, X GC, Y GC
+                       |    Area, Inertia 1, Inertia Frame bar, X GC, Y GC     |
     I_ELEMENT          | i element in looping                                  | Integer
     AUX_2              | ID section                                            | Integer
 
     Output:
-    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py list [6]
-                            [0] - Length
-                            [1] - Sine
-                            [2] - Cosine
-                            [3] - Area
-                            [4] - Inertia auxiliar
-                            [5] - Inertia frame element
+    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py list[6]
+                       |     [0] - Length                                      |
+                       |     [1] - Sine                                        |
+                       |     [2] - Cosine                                      |
+                       |     [3] - Area                                        |
+                       |     [4] - Inertia auxiliar                            |
+                       |     [5] - Inertia frame element                       |
     """
     NODE_1 = int(ELEMENTS[I_ELEMENT, 0])
     NODE_2 = int(ELEMENTS[I_ELEMENT, 1])
@@ -287,48 +317,48 @@ def GEOMETRIC_PROPERTIES_0(COORDINATES, ELEMENTS, SECTIONS, I_ELEMENT, AUX_2):
     SECTION_IELEMENT = [L, SIN, COS, A, I_1, I_2]
     return SECTION_IELEMENT
 
+# SEPARAÇÃO DE UMA MATRIZ QUE CONTÉM AS PROPRIEDADES DE RÓTULAS
 def HINGED_PROPERTIES(ELEMENTS):
     """
     This function creates an array with the hinge properties per node.
 
     Input
     ELEMENTS  | Elements properties                                | Py Numpy array
-                    Node 0 ... Node (N_NODES - 1), Material ID, 
-                    Geometry ID, Hinge ID node 1, Hinge ID node 2
+              |     Node 0 ... Node (N_NODES - 1), Material ID,    | 
+              |     Geometry ID, Hinge ID node 1, Hinge ID node 2  |
     
     Output:
-    HINGES    | Hinge properties per node                          | Py Numpy array [N_NODES x 2]
-                    0 - No hinge
-                    1 - Yes hinge
+    HINGES    | Hinge properties per node                          | Py Numpy array[N_NODES x 2]
+              |     0 - No hinge                                   |
+              |     1 - Yes hinge                                  |
     """
     HINGES = ELEMENTS[:, 4:]
     return HINGES
 
+# MATRIZ DE RIGIDEZ LOCAL DO ELEMENTO TIPO FRAME
 def ELEMENT_STIFFNESS_0(TYPE_ELEMENT, SECTION_IELEMENT, MATERIAL_IELEMENT, HINGES_IELEMENT):
     """ 
     This function creates the element stiffness matrix of the I_ELEMENT. 
-
-    # http://www.ikb.poznan.pl/przemyslaw.litewka/06-matrix-stiffness-method.pdf
     
     Input:
     TYPE_ELEMENT       | Type element in Finito algorithm                      | Integer 
-                           0 - Frame bar element        
-    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py list [6]
-                           [0] - Length
-                           [1] - Sine
-                           [2] - Cosine
-                           [3] - Area
-                           [4] - Inertia auxiliar
-                           [5] - Inertia frame element
-    MATERIAL_IELEMENT  | Material I_ELEMENT properties                         | Py list [5]
-                           [0] - Young
-                           [1] - Shear modulus
-                           [2] - Poisson
-                           [3] - Thermal coefficient
-                           [4] - Density    
-    HINGES             | Hinge properties per node                             | Py Numpy array [N_NODES x 2]
-                           0 - No hinge
-                           1 - Yes hinge
+                       |     0 - Frame bar element                             |        
+    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py list[6]
+                       |     [0] - Length                                      |
+                       |     [1] - Sine                                        |
+                       |     [2] - Cosine                                      |
+                       |     [3] - Area                                        |
+                       |     [4] - Inertia auxiliar                            |
+                       |     [5] - Inertia frame element                       |
+    MATERIAL_IELEMENT  | Material I_ELEMENT properties                         | Py list[5]
+                       |     [0] - Young                                       |
+                       |     [1] - Shear modulus                               |
+                       |     [2] - Poisson                                     |
+                       |     [3] - Thermal coefficient                         |
+                       |     [4] - Density                                     |   
+    HINGES             | Hinge properties per node                             | Py Numpy array[N_NODES x 2]
+                       |     0 - No hinge                                      |
+                       |     1 - Yes hinge                                     |
     
     Output:
     K_IELEMENT         | Local stiffness matrix I_ELEMENT                      | Py Numpy array [N_DOFSELEMENT x N_DOFSELEMENT]
@@ -390,16 +420,17 @@ def ELEMENT_STIFFNESS_0(TYPE_ELEMENT, SECTION_IELEMENT, MATERIAL_IELEMENT, HINGE
 def ELEMENT_ROTATION(TYPE_ELEMENT, SECTION_IELEMENT):
     """ 
     This function creates the rotation matrix of the I_ELEMENT element.
+
     Input:
     TYPE_ELEMENT       | Type element in Finito algorithm                      | Integer 
-                           0 - Frame bar element   
-    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py list [6]
-                           [0] - Length
-                           [1] - Sine
-                           [2] - Cosine
-                           [3] - Area
-                           [4] - Inertia auxiliar
-                           [5] - Inertia frame element      
+                       |     0 - Frame bar element                             |
+    SECTION_IELEMENT   | Section I_ELEMENT properties                          | Py list[6]
+                       |     [0] - Length                                      |
+                       |     [1] - Sine                                        |
+                       |     [2] - Cosine                                      |
+                       |     [3] - Area                                        |
+                       |     [4] - Inertia auxiliar                            |
+                       |     [5] - Inertia frame element                       |  
     Output:
     R_IELEMENT         | Rotation matrix  I_ELEMENT                            | Py Numpy array [N_DOFSELEMENT x N_DOFSELEMENT]
     """
@@ -413,3 +444,21 @@ def ELEMENT_ROTATION(TYPE_ELEMENT, SECTION_IELEMENT):
                                [0, 0, 0, -SIN, COS, 0],
                                [0, 0, 0, 0, 0, 1]])
     return R_IELEMENT
+
+#  /$$$$$$$$ /$$$$$$ /$$   /$$ /$$$$$$ /$$$$$$$$  /$$$$$$        /$$$$$$$$  /$$$$$$   /$$$$$$  /$$       /$$$$$$$   /$$$$$$  /$$   /$$                                
+# | $$_____/|_  $$_/| $$$ | $$|_  $$_/|__  $$__/ /$$__  $$      |__  $$__/ /$$__  $$ /$$__  $$| $$      | $$__  $$ /$$__  $$| $$  / $$                                
+# | $$        | $$  | $$$$| $$  | $$     | $$   | $$  \ $$         | $$   | $$  \ $$| $$  \ $$| $$      | $$  \ $$| $$  \ $$|  $$/ $$/                                
+# | $$$$$     | $$  | $$ $$ $$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$$$$$$ | $$  | $$ \  $$$$/                                 
+# | $$__/     | $$  | $$  $$$$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$__  $$| $$  | $$  >$$  $$                                 
+# | $$        | $$  | $$\  $$$  | $$     | $$   | $$  | $$         | $$   | $$  | $$| $$  | $$| $$      | $$  \ $$| $$  | $$ /$$/\  $$                                
+# | $$       /$$$$$$| $$ \  $$ /$$$$$$   | $$   |  $$$$$$/         | $$   |  $$$$$$/|  $$$$$$/| $$$$$$$$| $$$$$$$/|  $$$$$$/| $$  \ $$                                
+# |__/      |______/|__/  \__/|______/   |__/    \______/          |__/    \______/  \______/ |________/|_______/  \______/ |__/  |__/                                                                                                                                                                                                                                                                                                                                                                   
+                                                                                                                                                                    
+#   /$$$$$$  /$$$$$$$  /$$$$$$$$ /$$$$$$$$       /$$$$$$$$ /$$$$$$$$  /$$$$$$  /$$   /$$ /$$   /$$  /$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$ 
+#  /$$__  $$| $$__  $$| $$_____/| $$_____/      |__  $$__/| $$_____/ /$$__  $$| $$  | $$| $$$ | $$ /$$__  $$| $$       /$$__  $$ /$$__  $$|_  $$_/| $$_____/ /$$__  $$
+# | $$  \__/| $$  \ $$| $$      | $$               | $$   | $$      | $$  \__/| $$  | $$| $$$$| $$| $$  \ $$| $$      | $$  \ $$| $$  \__/  | $$  | $$      | $$  \__/
+# | $$ /$$$$| $$$$$$$/| $$$$$   | $$$$$            | $$   | $$$$$   | $$      | $$$$$$$$| $$ $$ $$| $$  | $$| $$      | $$  | $$| $$ /$$$$  | $$  | $$$$$   |  $$$$$$ 
+# | $$|_  $$| $$____/ | $$__/   | $$__/            | $$   | $$__/   | $$      | $$__  $$| $$  $$$$| $$  | $$| $$      | $$  | $$| $$|_  $$  | $$  | $$__/    \____  $$
+# | $$  \ $$| $$      | $$      | $$               | $$   | $$      | $$    $$| $$  | $$| $$\  $$$| $$  | $$| $$      | $$  | $$| $$  \ $$  | $$  | $$       /$$  \ $$
+# |  $$$$$$/| $$      | $$$$$$$$| $$$$$$$$         | $$   | $$$$$$$$|  $$$$$$/| $$  | $$| $$ \  $$|  $$$$$$/| $$$$$$$$|  $$$$$$/|  $$$$$$/ /$$$$$$| $$$$$$$$|  $$$$$$/
+#  \______/ |__/      |________/|________/         |__/   |________/ \______/ |__/  |__/|__/  \__/ \______/ |________/ \______/  \______/ |______/|________/ \______/ 
