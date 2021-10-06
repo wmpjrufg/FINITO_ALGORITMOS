@@ -1,0 +1,6 @@
+Abrir o anaconda prompt
+cd.. na pasta onde está o setup.py
+instalar o setup tools pip install setuptools (caso instalado pular esta etapa)
+executar python setup.py sdist
+instalar o twine pip install twine (caso instalado pular esta etapa)
+executar o twine para test Pypi twine upload dist/* --repository-url https://test.pypi.org/legacy/
